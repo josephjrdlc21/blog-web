@@ -1,15 +1,10 @@
 <template>
-    <div>
-        <h1>Hello, Vue with Laravel!</h1>
-    </div>
+    <nav>
+        <RouterLink to="/">Home</RouterLink>
+    </nav>
+    <RouterView />
 </template>
 
-<script>
-export default {
-    data() {
-        return {
-        data: null,
-        };
-    },
-};
+<script setup>
+
 </script>
