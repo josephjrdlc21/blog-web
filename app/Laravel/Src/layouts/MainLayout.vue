@@ -5,6 +5,7 @@
             <div class="layout-page">
                 <Topbar/>
                 <div class="content-wrapper">
+                    <slot />
                 </div>
             </div>
         </div>
@@ -12,6 +13,6 @@
 </template>
 
 <script setup>
-    import Sidebar from '../components/Sidebar.vue';
-    import Topbar from '../components/Topbar.vue';
+    import Sidebar from '../components/AppSidebar.vue';
+    import Topbar from '../components/AppTopbar.vue';
 </script>
