@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Index from '../views/Index.vue';
 
 const routes = [
-    { path: '/', component: Index },
+    { path: '/', name: 'Index', component: Index },
 ];
 
 const router = createRouter({

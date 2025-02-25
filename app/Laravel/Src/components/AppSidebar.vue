@@ -44,7 +44,7 @@
         </div>
         <ul class="menu-inner py-1">
             <li class="menu-item active">
-                <RouterLink to="/" class="menu-link">
+                <RouterLink :to="{name: 'Index'}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-home-circle"></i>
                     <div data-i18n="Analytics">Dashboard</div>
                 </RouterLink>
@@ -82,6 +82,7 @@
 <script setup>
     import { RouterLink } from 'vue-router';
     import { ref } from 'vue';
+import Index from '../views/Index.vue';
 
     const isOpen = ref(false);
 
