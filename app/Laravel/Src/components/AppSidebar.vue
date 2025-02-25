@@ -82,7 +82,6 @@
 <script setup>
     import { RouterLink } from 'vue-router';
     import { ref } from 'vue';
-import Index from '../views/Index.vue';
 
     const isOpen = ref(false);
 
