@@ -22,6 +22,8 @@ class User extends Authenticatable implements JWTSubject{
         });
     }
 
+    protected $dates = ['last_login_at'];
+
     /**
      * The attributes that are mass assignable.
      *
