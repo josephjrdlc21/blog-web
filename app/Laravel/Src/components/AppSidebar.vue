@@ -43,7 +43,7 @@
             </a>
         </div>
         <ul class="menu-inner py-1">
-            <li class="menu-item active">
+            <li class="menu-item">
                 <RouterLink :to="{name: 'Index'}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-home-circle"></i>
                     <div data-i18n="Analytics">Dashboard</div>
@@ -52,28 +52,11 @@
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">Pages</span>
             </li>
-            <li :class="['menu-item', { open: isOpen }]" style="" @click="toggleMenu">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <li class="menu-item">
+                <RouterLink :to="{name: 'UserIndex'}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                    <div data-i18n="Account Settings">Account Settings</div>
-                </a>
-                <ul class="menu-sub">
-                    <li class="menu-item">
-                        <a href="#" class="menu-link">
-                            <div data-i18n="Account">Account</div>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="#" class="menu-link">
-                            <div data-i18n="Notifications">Notifications</div>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="#" class="menu-link">
-                            <div data-i18n="Connections">Connections</div>
-                        </a>
-                    </li>
-                </ul>
+                    <div data-i18n="Accounts">Accounts</div>
+                </RouterLink>
             </li>
         </ul>
     </aside>
@@ -81,13 +64,6 @@
 
 <script setup>
     import { RouterLink } from 'vue-router';
-    import { ref } from 'vue';
-
-    const isOpen = ref(false);
-
-    const toggleMenu = () => {
-        isOpen.value = !isOpen.value;
-    };
 
     const collapseMenu = () => {
         document.documentElement.className = 'light-style layout-menu-fixed';
