@@ -40,4 +40,22 @@ class UserController extends Controller{
         callback:
         return response()->json($this->api_response($this->response), $this->response_code);
     }
+
+    public function show(PageRequest $request,$id = null){
+        $user = User::find($id);
+
+        if(!$user){
+            $error = $this->not_found_error();
+            return response()->json($error['body'], $error['code']);
+        }
+
+        $this->response['status'] = true;
+        $this->response['status_code'] = "SHOW_USER";
+        $this->response['msg'] = "Show User Details";
+        $this->response['data'] = $this->transformer->transform($user, new UserTransformer(), 'item');
+        $this->response_code = 200;
+        
+        callback:
+        return response()->json($this->api_response($this->response), $this->response_code);
+    }
 }

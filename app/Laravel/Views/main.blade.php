@@ -17,6 +17,12 @@
         <link rel="stylesheet" href="{{asset('assets/css/demo.css')}}" />
         <link rel="stylesheet" href="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
 
+        <style>
+            .dropdown-menu {
+                margin: 0 !important;
+            }
+        </style>
+
         <script src="{{asset('assets/vendor/js/helpers.js')}}"></script>
         <script src="{{asset('assets/js/config.js')}}"></script>
 

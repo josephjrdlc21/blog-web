@@ -29,10 +29,6 @@
                                     <input class="form-control" type="date" value="2021-06-18" id="input_to">
                                 </div>
                             </div>
-                            <div class="demo-inline-spacing mt-2">
-                                <button type="button" class="btn btn-primary">Apply</button>                            
-                                <button type="button" class="btn btn-outline-primary ml-5">Reset</button>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -54,19 +50,20 @@
                                 <tbody class="table-border-bottom-0">
                                     <tr v-for="user in users.users" :key="user.id">
                                         <td>{{ user.name }}</td>
-                                        <td>{{ user.email }}<br>{{ user.username }}</td>
+                                        <td>{{ user.email }}<br><small>{{ user.username }}</small></td>
                                         <td>{{ user.status }}</td>
                                         <td>{{ user.type }}</td>
                                         <td>{{ user.last_login_at || 'N/A' }}</td>
                                         <td>
-                                            <div class="dropdown">
-                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Action
                                                 </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-2"></i> Edit</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-2"></i> Delete</a>
-                                                </div>
+                                                <ul class="dropdown-menu" style="" data-bs-popper="static">
+                                                    <li><RouterLink :to="{name: 'UsersShow', params: {id: user.id}}" class="dropdown-item"> View Details</RouterLink></li>
+                                                    <li><a class="dropdown-item" href="javascript:void(0);">Another action</a></li>
+                                                    <li><a class="dropdown-item" href="javascript:void(0);">Something else here</a></li>
+                                                </ul>
                                             </div>
                                         </td>
                                     </tr>
@@ -84,20 +81,19 @@
     import MainLayout from '../../layouts/MainLayout.vue';
     import { ref, onMounted } from 'vue';
     import axios from 'axios';
+    import { RouterLink } from 'vue-router';
 
     const users = ref({
         users: []
     });
 
-    const getUsers = async () => {
+    onMounted(async () => {
         try {
-            const response = await axios.get('http://blog-web.test/api/users');
+            const response = await axios.get(`${API_BASE_URL}/users`);
 
             users.value.users = response.data.data;
         } catch (error) {
             alert('Error: ' + error.message);
         }
-    };
-
-    onMounted(getUsers);
+    });
 </script>
