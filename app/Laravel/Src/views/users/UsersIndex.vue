@@ -9,11 +9,11 @@
                         <div class="card-body">
                             <h5 class="card-title mb-4">Advanced Filters</h5>
                             <div class="row">
-                                <div class="col-lg-3">
+                                <div class="col-lg-4">
                                     <label for="input_keyword" class="form-label">Keyword</label>
                                     <input type="text" class="form-control" id="input_keyword" placeholder="e.g, Name, Username, Email">
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-2">
                                     <label for="input_type" class="form-label">Type</label>
                                     <input type="text" class="form-control" id="input_type" placeholder="All">
                                 </div>
@@ -55,7 +55,7 @@
                                     <tr v-for="user in data.users" :key="user.id">
                                         <td>{{ user.name }}</td>
                                         <td>{{ user.email }}<br><small>{{ user.username }}</small></td>
-                                        <td>{{ user.status }}</td>
+                                        <td><StatusBadge :status="user.status"/></td>
                                         <td>{{ user.type }}</td>
                                         <td>{{ user.last_login_at || 'N/A' }}</td>
                                         <td>
@@ -65,8 +65,8 @@
                                                 </button>
                                                 <ul class="dropdown-menu" style="" data-bs-popper="static">
                                                     <li><RouterLink :to="{name: 'UsersShow', params: {id: user.id}}" class="dropdown-item"> View Details</RouterLink></li>
-                                                    <li><a class="dropdown-item" href="javascript:void(0);">Another action</a></li>
-                                                    <li><a class="dropdown-item" href="javascript:void(0);">Something else here</a></li>
+                                                    <li><a class="dropdown-item" href="javascript:void(0);">Edit Details</a></li>
+                                                    <li><a class="dropdown-item" href="javascript:void(0);">Delete User</a></li>
                                                 </ul>
                                             </div>
                                         </td>
@@ -84,6 +84,7 @@
 <script setup>
     import MainLayout from '../../layouts/MainLayout.vue';
     import Notification from '../../components/AppNotification.vue';
+    import StatusBadge from '../../components/AppStatusBadge.vue'
     import { ref, onMounted } from 'vue';
     import axios from 'axios';
     import { RouterLink } from 'vue-router';
