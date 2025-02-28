@@ -66,15 +66,8 @@
             
             data.value.user = response.data.data;
         }catch(error){
-            if(error.response && error.response.status === 404){
-                router.push({
-                    name: 'UsersIndex',
-                    query: { message: error.response.data.msg, type: 'danger' }
-                });
-            }
-            else{
-                alert('Error: ' + error.message);
-            }
+            router.push({ name: 'UsersIndex' });
+            alert('Error: ' + error.response.data.msg);
         }
     });
 </script>

@@ -2,7 +2,6 @@
     <MainLayout>
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Accounts /</span> Users</h4>
-            <Notification/>
             <div class="row">
                 <div class="col-12 mb-4 order-0">
                     <div class="card">
@@ -53,8 +52,8 @@
                                         <td colspan="6" class="text-center">No records found</td>
                                     </tr>
                                     <tr v-for="user in data.users" :key="user.id">
-                                        <td>{{ user.name }}</td>
-                                        <td>{{ user.email }}<br><small>{{ user.username }}</small></td>
+                                        <td>{{ user.name }}<br><small>{{ user.username }}</small></td>
+                                        <td>{{ user.email }}</td>
                                         <td><StatusBadge :status="user.status"/></td>
                                         <td>{{ user.type }}</td>
                                         <td>{{ user.last_login_at || 'N/A' }}</td>
@@ -83,7 +82,6 @@
 
 <script setup>
     import MainLayout from '../../layouts/MainLayout.vue';
-    import Notification from '../../components/AppNotification.vue';
     import StatusBadge from '../../components/AppStatusBadge.vue'
     import { ref, onMounted } from 'vue';
     import axios from 'axios';
