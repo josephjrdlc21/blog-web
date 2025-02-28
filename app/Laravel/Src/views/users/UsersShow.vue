@@ -10,31 +10,31 @@
                             <div class="row">
                                 <div class="col-md-6 mb-2">
                                     <h6><b>Name</b></h6>
-                                    <p>{{ user.user.name }}</p>
+                                    <p>{{ data.user.name }}</p>
                                 </div>
                                 <div class="col-md-6 mb-2">
                                     <h6><b>Email</b></h6>
-                                    <p>{{ user.user.email }}</p>
+                                    <p>{{ data.user.email }}</p>
                                 </div>
                                 <div class="col-md-6 mb-2">
                                     <h6><b>Username</b></h6>
-                                    <p>{{ user.user.username }}</p>
+                                    <p>{{ data.user.username }}</p>
                                 </div>
                                 <div class="col-md-6 mb-2">
                                     <h6><b>Type</b></h6>
-                                    <p>{{ user.user.type }}</p>
+                                    <p>{{ data.user.type }}</p>
                                 </div>
                                 <div class="col-md-6 mb-2">
                                     <h6><b>Status</b></h6>
-                                    <p>{{ user.user.status }}</p>
+                                    <p>{{ data.user.status }}</p>
                                 </div>
                                 <div class="col-md-6 mb-2">
                                     <h6><b>Last Login</b></h6>
-                                    <p>{{ user.user.last_login_at || 'N/A' }}</p>
+                                    <p>{{ data.user.last_login_at || 'N/A' }}</p>
                                 </div>
                                 <div class="col-md-6 mb-2">
                                     <h6><b>Date Registered</b></h6>
-                                    <p>{{ user.user.created_at }}</p>
+                                    <p>{{ data.user.created_at }}</p>
                                 </div>
                             </div>
                             <div class="demo-inline-spacing">
@@ -50,22 +50,31 @@
 
 <script setup>
     import MainLayout from '../../layouts/MainLayout.vue';
-    import { RouterLink, useRoute } from 'vue-router';
+    import { RouterLink, useRoute, useRouter } from 'vue-router';
     import { onMounted, ref } from 'vue';
     import axios from 'axios';
 
+    const router = useRouter();
     const route = useRoute();
-    const user = ref({
+    const data = ref({
         user: []
     });
 
     onMounted(async () => {
         try{
             const response = await axios.get(`${API_BASE_URL}/users/show/${route.params.id}`);
-        
-            user.value.user = response.data.data;
-        }catch (error){
-            alert('Error: ' + error.message);
+            
+            data.value.user = response.data.data;
+        }catch(error){
+            if(error.response && error.response.status === 404){
+                router.push({
+                    name: 'UsersIndex',
+                    query: { message: error.response.data.msg, type: 'danger' }
+                });
+            }
+            else{
+                alert('Error: ' + error.message);
+            }
         }
     });
 </script>

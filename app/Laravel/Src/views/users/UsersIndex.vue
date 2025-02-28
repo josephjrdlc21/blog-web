@@ -2,6 +2,7 @@
     <MainLayout>
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Accounts /</span> Users</h4>
+            <Notification/>
             <div class="row">
                 <div class="col-12 mb-4 order-0">
                     <div class="card">
@@ -48,7 +49,10 @@
                                     </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0">
-                                    <tr v-for="user in users.users" :key="user.id">
+                                    <tr v-if="data.users.length === 0">
+                                        <td colspan="6" class="text-center">No records found</td>
+                                    </tr>
+                                    <tr v-for="user in data.users" :key="user.id">
                                         <td>{{ user.name }}</td>
                                         <td>{{ user.email }}<br><small>{{ user.username }}</small></td>
                                         <td>{{ user.status }}</td>
@@ -79,11 +83,12 @@
 
 <script setup>
     import MainLayout from '../../layouts/MainLayout.vue';
+    import Notification from '../../components/AppNotification.vue';
     import { ref, onMounted } from 'vue';
     import axios from 'axios';
     import { RouterLink } from 'vue-router';
 
-    const users = ref({
+    const data = ref({
         users: []
     });
 
@@ -91,7 +96,7 @@
         try {
             const response = await axios.get(`${API_BASE_URL}/users`);
 
-            users.value.users = response.data.data;
+            data.value.users = response.data.data;
         } catch (error) {
             alert('Error: ' + error.message);
         }

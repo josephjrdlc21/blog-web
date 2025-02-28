@@ -5,8 +5,9 @@
             <div class="layout-page">
                 <Topbar/>
                 <div class="content-wrapper">
-                    <slot />
+                    <slot/>
                 </div>
+                <Footer/>
             </div>
         </div>
     </div>
@@ -15,4 +16,5 @@
 <script setup>
     import Sidebar from '../components/AppSidebar.vue';
     import Topbar from '../components/AppTopbar.vue';
+    import Footer from '../components/AppFooter.vue';
 </script>
