@@ -26,7 +26,7 @@
                                 </div>
                                 <div class="col-md-6 mb-2">
                                     <h6><b>Status</b></h6>
-                                    <p>{{ data.user.status }}</p>
+                                    <p><StatusBadge :status="data.user.status"/></p>
                                 </div>
                                 <div class="col-md-6 mb-2">
                                     <h6><b>Last Login</b></h6>
@@ -50,6 +50,7 @@
 
 <script setup>
     import MainLayout from '../../layouts/MainLayout.vue';
+    import StatusBadge from '../../components/AppStatusBadge.vue';
     import { RouterLink, useRoute, useRouter } from 'vue-router';
     import { onMounted, ref } from 'vue';
     import axios from 'axios';
