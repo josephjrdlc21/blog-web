@@ -5,14 +5,14 @@ namespace App\Laravel\Controllers\Api;
 use App\Laravel\Models\User;
 
 use App\Laravel\Requests\PageRequest;
-//use App\Laravel\Requests\Api\UserRequest;
+use App\Laravel\Requests\Api\UserRequest;
 
 use App\Laravel\Traits\ResponseGenerator;
 
 use App\Laravel\Transformers\UserTransformer;
 use App\Laravel\Transformers\TransformerManager;
 
-use DB;
+use DB,Str;
 
 class UserController extends Controller{
     use ResponseGenerator;
@@ -36,6 +36,39 @@ class UserController extends Controller{
         $this->response['msg'] = "List of Users";
         $this->response['data'] = $this->transformer->transform($users, new UserTransformer(), 'collection');
         $this->response_code = 200;
+
+        callback:
+        return response()->json($this->api_response($this->response), $this->response_code);
+    }
+
+    public function store(UserRequest $request){
+        DB::beginTransaction();
+        try{
+            $user = new User;
+            $user->firstname = Str::upper($request->input('firstname'));
+            $user->middlename = Str::upper($request->input('middlename'));
+            $user->lastname = Str::upper($request->input('lastname'));
+            $user->suffix = Str::upper($request->input('suffix'));
+            $user->username = Str::lower($request->input('username'));
+            $user->type = $request->input('type');
+            $user->email = Str::lower($request->input('email'));
+            $user->save();
+
+            DB::commit();
+
+            $this->response['status'] = true;
+            $this->response['status_code'] = "USERS_CREATED";
+            $this->response['msg'] = "User has been created.";
+            $this->response['data'] = $this->transformer->transform($user, new UserTransformer(), 'item');
+            $this->response_code = 201;
+
+            goto callback;
+        }catch(\Exception $e){
+            DB::rollback();
+
+            $error = $this->db_error($e->getLine());
+            return response()->json($error['body'], $error['code']);
+        }
 
         callback:
         return response()->json($this->api_response($this->response), $this->response_code);

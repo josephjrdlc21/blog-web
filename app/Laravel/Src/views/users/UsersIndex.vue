@@ -34,7 +34,12 @@
                 </div>
                 <div class="col-12 mb-4 order-0">
                     <div class="card">
-                        <h5 class="card-header">Users</h5>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-header">Users</h5>
+                            <div style="margin-right: 24px;">
+                                <RouterLink :to="{ name: 'UsersCreate' }" class="btn btn-primary">Create User</RouterLink>
+                            </div>
+                        </div>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -48,10 +53,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0">
-                                    <tr v-if="data.users.length === 0">
-                                        <td colspan="6" class="text-center">No records found</td>
-                                    </tr>
-                                    <tr v-for="user in data.users" :key="user.id">
+                                    <tr v-if="userStore.users.length" v-for="user in userStore.users" :key="user.id">
                                         <td>{{ user.name }}<br><small>{{ user.username }}</small></td>
                                         <td>{{ user.email }}</td>
                                         <td><StatusBadge :status="user.status"/></td>
@@ -70,6 +72,9 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    <tr v-else>
+                                        <td colspan="6" class="text-center">No records found</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -82,22 +87,15 @@
 
 <script setup>
     import MainLayout from '../../layouts/MainLayout.vue';
-    import StatusBadge from '../../components/AppStatusBadge.vue'
-    import { ref, onMounted } from 'vue';
-    import axios from 'axios';
+    import StatusBadge from '../../components/AppStatusBadge.vue';
+    
+    import { useUserStore } from '../../store/userStore';
+    import { onMounted } from 'vue';
     import { RouterLink } from 'vue-router';
 
-    const data = ref({
-        users: []
-    });
+    const userStore = useUserStore();
 
     onMounted(async () => {
-        try {
-            const response = await axios.get(`${API_BASE_URL}/users`);
-
-            data.value.users = response.data.data;
-        } catch (error) {
-            alert('Error: ' + error.message);
-        }
+        await userStore.usersIndex();
     });
 </script>

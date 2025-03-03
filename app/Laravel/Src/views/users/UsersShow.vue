@@ -7,37 +7,37 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title mb-4">Account Information</h5>
-                            <div class="row">
+                            <div v-if="userStore.user" class="row">
                                 <div class="col-md-6 mb-2">
                                     <h6><b>Name</b></h6>
-                                    <p>{{ data.user.name }}</p>
+                                    <p>{{ userStore.user.name }}</p>
                                 </div>
                                 <div class="col-md-6 mb-2">
                                     <h6><b>Email</b></h6>
-                                    <p>{{ data.user.email }}</p>
+                                    <p>{{ userStore.user.email }}</p>
                                 </div>
                                 <div class="col-md-6 mb-2">
                                     <h6><b>Username</b></h6>
-                                    <p>{{ data.user.username }}</p>
+                                    <p>{{ userStore.user.username }}</p>
                                 </div>
                                 <div class="col-md-6 mb-2">
                                     <h6><b>Type</b></h6>
-                                    <p>{{ data.user.type }}</p>
+                                    <p>{{ userStore.user.type }}</p>
                                 </div>
                                 <div class="col-md-6 mb-2">
                                     <h6><b>Status</b></h6>
-                                    <p><StatusBadge :status="data.user.status"/></p>
+                                    <p><StatusBadge :status="userStore.user.status"/></p>
                                 </div>
                                 <div class="col-md-6 mb-2">
                                     <h6><b>Last Login</b></h6>
-                                    <p>{{ data.user.last_login_at || 'N/A' }}</p>
+                                    <p>{{ userStore.user.last_login_at || 'N/A' }}</p>
                                 </div>
                                 <div class="col-md-6 mb-2">
                                     <h6><b>Date Registered</b></h6>
-                                    <p>{{ data.user.created_at }}</p>
+                                    <p>{{ userStore.user.created_at }}</p>
                                 </div>
                             </div>
-                            <div class="demo-inline-spacing">
+                            <div class="demo-inline-spacing d-flex justify-content-end">
                                 <RouterLink :to="{ name: 'UsersIndex' }" class="btn btn-outline-secondary">Return to List</RouterLink>                            
                             </div>
                         </div>
@@ -51,24 +51,20 @@
 <script setup>
     import MainLayout from '../../layouts/MainLayout.vue';
     import StatusBadge from '../../components/AppStatusBadge.vue';
+    
+    import { useUserStore } from '../../store/userStore';
     import { RouterLink, useRoute, useRouter } from 'vue-router';
-    import { onMounted, ref } from 'vue';
-    import axios from 'axios';
+    import { onMounted } from 'vue';
 
+    const userStore = useUserStore();
     const router = useRouter();
     const route = useRoute();
-    const data = ref({
-        user: []
-    });
-
+    
     onMounted(async () => {
-        try{
-            const response = await axios.get(`${API_BASE_URL}/users/show/${route.params.id}`);
-            
-            data.value.user = response.data.data;
-        }catch(error){
-            router.push({ name: 'UsersIndex' });
-            alert('Error: ' + error.response.data.msg);
+        await userStore.usersShow(route.params.id);
+
+        if(Object.keys(userStore.user).length <= 0) {
+            router.replace({ name: 'UsersIndex' });        
         }
     });
 </script>

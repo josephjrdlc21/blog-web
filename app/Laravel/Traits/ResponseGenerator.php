@@ -7,11 +7,11 @@ trait ResponseGenerator
     protected $response;
     protected $response_code;
 
-    public function db_error()
+    public function db_error($error_code)
     {
         $response['status'] = false;
         $response['status_code'] = "DB_ERROR";
-        $response['msg'] = "Process failed due to internal server error. Please try again.";
+        $response['msg'] = $error_code ? "Server Error: Code #{$error_code}." : "Process failed due to internal server error. Please try again.";
         $response_code = 500;
 
         return ['body' => $response, 'code' => $response_code];
