@@ -5,12 +5,12 @@
 <script setup>
     import { computed } from 'vue';
 
-    const props = defineProps({
+    const data = defineProps({
         status: String
     });
 
     const badgeClass = computed(() => {
-        switch (props.status) {
+        switch (data.status) {
             case 'inactive':
                 return 'bg-label-secondary';
             case 'active':
@@ -21,7 +21,7 @@
     });
 
     const badgeText = computed(() => {
-        switch (props.status) {
+        switch (data.status) {
             case 'inactive':
                 return 'Inactive';
             case 'active':

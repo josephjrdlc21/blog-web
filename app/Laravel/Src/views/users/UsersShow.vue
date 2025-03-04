@@ -51,6 +51,7 @@
 <script setup>
     import MainLayout from '../../layouts/MainLayout.vue';
     import StatusBadge from '../../components/AppStatusBadge.vue';
+    import Notification from '../../components/AppNotification.vue';
     
     import { useUserStore } from '../../store/userStore';
     import { RouterLink, useRoute, useRouter } from 'vue-router';

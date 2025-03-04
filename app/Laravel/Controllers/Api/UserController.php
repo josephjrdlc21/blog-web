@@ -44,6 +44,8 @@ class UserController extends Controller{
     public function store(UserRequest $request){
         DB::beginTransaction();
         try{
+            $password = Str::random(8);
+
             $user = new User;
             $user->firstname = Str::upper($request->input('firstname'));
             $user->middlename = Str::upper($request->input('middlename'));
@@ -52,6 +54,7 @@ class UserController extends Controller{
             $user->username = Str::lower($request->input('username'));
             $user->type = $request->input('type');
             $user->email = Str::lower($request->input('email'));
+            $user->password = bcrypt($password);
             $user->save();
 
             DB::commit();

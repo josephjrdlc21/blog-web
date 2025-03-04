@@ -1,6 +1,7 @@
 <template>
     <MainLayout>
         <div class="container-xxl flex-grow-1 container-p-y">
+            <Notification />
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Accounts /</span> Users</h4>
             <div class="row">
                 <div class="col-12 mb-4 order-0">
@@ -88,7 +89,8 @@
 <script setup>
     import MainLayout from '../../layouts/MainLayout.vue';
     import StatusBadge from '../../components/AppStatusBadge.vue';
-    
+    import Notification from '../../components/AppNotification.vue';
+
     import { useUserStore } from '../../store/userStore';
     import { onMounted } from 'vue';
     import { RouterLink } from 'vue-router';
