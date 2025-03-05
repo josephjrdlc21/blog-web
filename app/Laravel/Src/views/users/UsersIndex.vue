@@ -66,8 +66,8 @@
                                                     Action
                                                 </button>
                                                 <ul class="dropdown-menu" style="" data-bs-popper="static">
-                                                    <li><RouterLink :to="{name: 'UsersShow', params: {id: user.id}}" class="dropdown-item"> View Details</RouterLink></li>
-                                                    <li><a class="dropdown-item" href="javascript:void(0);">Edit Details</a></li>
+                                                    <li><RouterLink :to="{ name: 'UsersShow', params: {id: user.id} }" class="dropdown-item"> View Details</RouterLink></li>
+                                                    <li><RouterLink :to="{ name: 'UsersEdit', params: {id: user.id} }" class="dropdown-item"> Edit Details</RouterLink></li>
                                                     <li><a class="dropdown-item" href="javascript:void(0);">Delete User</a></li>
                                                 </ul>
                                             </div>
