@@ -10,9 +10,16 @@
 </template>
 
 <script setup>
+    import { onUnmounted } from 'vue';
     import { useErrorStore } from '../store/errorStore';
 
     const errorStore = useErrorStore();
+
+    if(errorStore.isPopUp){
+        setTimeout(() => {
+            errorStore.clearNotification();
+        }, 2000)
+    }
 
     const handleCloseNotif = () => {
         errorStore.clearNotification();

@@ -5,6 +5,7 @@ export const useErrorStore = defineStore("error", {
         notificationStatus: '',
         notificationMsg: {},
         validations: {},
+        isPopUp: false,
     }),
 
     getters: {
@@ -27,16 +28,18 @@ export const useErrorStore = defineStore("error", {
     },
 
     actions: {
-        setNotification(status, message) {
+        setNotification(status, message, isPop) {
             this.notificationStatus = status;
             this.notificationMsg = message;
             this.validations = message;
+            this.isPopUp = isPop;
         },
 
         clearNotification() {
             this.notificationStatus = '';
             this.notificationMsg = '';
             this.validations = '';
+            this.isPopUp = false;
         },
     },
 });

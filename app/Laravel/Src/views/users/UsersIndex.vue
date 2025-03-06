@@ -68,7 +68,7 @@
                                                 <ul class="dropdown-menu" style="" data-bs-popper="static">
                                                     <li><RouterLink :to="{ name: 'UsersShow', params: {id: user.id} }" class="dropdown-item"> View Details</RouterLink></li>
                                                     <li><RouterLink :to="{ name: 'UsersEdit', params: {id: user.id} }" class="dropdown-item"> Edit Details</RouterLink></li>
-                                                    <li><a class="dropdown-item" href="javascript:void(0);">Delete User</a></li>
+                                                    <li><button @click="handleDelete(user.id)" class="dropdown-item">Delete User</button></li>
                                                 </ul>
                                             </div>
                                         </td>
@@ -92,12 +92,26 @@
     import Notification from '../../components/AppNotification.vue';
 
     import { useUserStore } from '../../store/userStore';
-    import { onMounted } from 'vue';
-    import { RouterLink } from 'vue-router';
+    import { onMounted, onUnmounted } from 'vue';
+    import { RouterLink, useRoute, useRouter } from 'vue-router';
 
     const userStore = useUserStore();
+    const route = useRoute();
+    const router = useRouter();
 
     onMounted(async () => {
         await userStore.usersIndex();
     });
+
+    onUnmounted(() => {
+        userStore.users = [];
+    });
+
+    const handleDelete = async (id) => {
+        const isConfirmed = confirm("Are you sure you want to delete this user?");
+    
+        if (isConfirmed) {
+            await userStore.usersDelete(id, router);
+        }    
+    }
 </script>

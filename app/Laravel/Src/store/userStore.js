@@ -21,28 +21,28 @@ export const useUserStore = defineStore("user", {
 
                 this.users = response.data.data;
             } catch(error) {
-                errorStore.setNotification("failed", error.response.data);
+                errorStore.setNotification("failed", error.response.data, true);
 
-                console.log(error);
+                console.log("Error " + error);
             }
         },
 
-        async usersCreate(data) {
+        async usersCreate(data, router) {
             const errorStore = useErrorStore();
 
             try {
                 const response = await axios.post(`${API_BASE_URL}/users/store`, data);
 
-                this.user = response.data.data;
-                errorStore.setNotification("success", response.data);
+                errorStore.setNotification("success", response.data, true);
+                router.replace({ name: 'UsersIndex' });
             } catch(error) {
-                errorStore.setNotification("failed", error.response.data);
+                errorStore.setNotification("failed", error.response.data, true);
 
-                console.log(error);
+                console.log("Error " + error);
             }
         },
 
-        async usersEdit(id) {
+        async usersEdit(id, router) {
             const errorStore = useErrorStore();
 
             try {
@@ -50,28 +50,48 @@ export const useUserStore = defineStore("user", {
 
                 this.user = response.data.data;
             } catch (error) {
-                errorStore.setNotification("failed", error.response.data);
+                errorStore.setNotification("failed", error.response.data, true);
+                router.replace({ name: 'UsersIndex' });
 
-                console.log(error);
+                console.log("Error " + error);
             }
         },
 
-        async usersUpdate(id, data) {
+        async usersUpdate(id, data, router) {
             const errorStore = useErrorStore();
 
             try {
                 const response = await axios.post(`${API_BASE_URL}/users/update/${id}`, data);
 
-                this.user = response.data.data;
-                errorStore.setNotification("success", response.data);
+                errorStore.setNotification("success", response.data, true);
+                router.replace({ name: 'UsersIndex' });
             } catch(error) {
-                errorStore.setNotification("failed", error.response.data);
+                errorStore.setNotification("failed", error.response.data, true);
 
-                console.log(error);
+                console.log("Error " + error);
             }
         },
 
-        async usersShow(id) {
+        async usersDelete(id, router){
+            const errorStore = useErrorStore();
+
+            try {
+                const response = await axios.delete(`${API_BASE_URL}/users/delete/${id}`);
+                
+                errorStore.setNotification("success", response.data, true);
+                
+                await this.usersIndex(); 
+
+                router.replace({ name: 'UsersIndex' });
+            } catch(error) {
+                errorStore.setNotification("failed", error.response.data, true);
+                router.replace({ name: 'UsersIndex' });
+
+                console.log("Error " + error);
+            }
+        },
+
+        async usersShow(id, router) {
             const errorStore = useErrorStore();
 
             try {
@@ -79,9 +99,10 @@ export const useUserStore = defineStore("user", {
 
                 this.user = response.data.data;
             } catch(error) {
-                errorStore.setNotification("failed", error.response.data);
+                errorStore.setNotification("failed", error.response.data, true);
+                router.replace({ name: 'UsersIndex' });
 
-                console.log(error);
+                console.log("Error " + error);
             }
         },
     },

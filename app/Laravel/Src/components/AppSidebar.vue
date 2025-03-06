@@ -43,7 +43,7 @@
             </a>
         </div>
         <ul class="menu-inner py-1">
-            <li class="menu-item">
+            <li :class="{ 'menu-item': true, 'active': isActive('/') }">
                 <RouterLink :to="{name: 'Index'}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-home-circle"></i>
                     <div data-i18n="Analytics">Dashboard</div>
@@ -52,7 +52,7 @@
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">Pages</span>
             </li>
-            <li class="menu-item">
+            <li :class="{ 'menu-item': true, 'active': isActive('/users') }">
                 <RouterLink :to="{name: 'UsersIndex'}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-dock-top"></i>
                     <div data-i18n="Accounts">Accounts</div>
@@ -64,8 +64,19 @@
 
 <script setup>
     import { RouterLink } from 'vue-router';
+    import { useRoute } from 'vue-router';
+
+    const route = useRoute();
 
     const collapseMenu = () => {
         document.documentElement.className = 'light-style layout-menu-fixed';
+    };
+
+    const isActive = (path) => {
+        if (path === "/") {
+            return route.path === "/";
+        }
+        
+        return route.path.startsWith(path);
     };
 </script>

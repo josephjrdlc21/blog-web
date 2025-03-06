@@ -134,6 +134,28 @@ class UserController extends Controller{
         return response()->json($this->api_response($this->response), $this->response_code);
     }
 
+    public function destroy(PageRequest $request,$id = null){
+        $user = User::find($id);
+
+        if(!$user){
+            $error = $this->not_found_error();
+            return response()->json($error['body'], $error['code']);
+        }
+
+        if($user->delete()){
+            $this->response['status'] = true;
+            $this->response['status_code'] = "USERS_DELETED";
+            $this->response['msg'] = "User has been deleted.";
+            $this->response['data'] = $this->transformer->transform($user, new UserTransformer(), 'item');
+            $this->response_code = 200;
+
+            goto callback;
+        }
+
+        callback:
+        return response()->json($this->api_response($this->response), $this->response_code);
+    }
+
     public function show(PageRequest $request,$id = null){
         $user = User::find($id);
 

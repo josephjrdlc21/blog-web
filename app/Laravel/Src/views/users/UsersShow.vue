@@ -54,17 +54,17 @@
     
     import { useUserStore } from '../../store/userStore';
     import { RouterLink, useRoute, useRouter } from 'vue-router';
-    import { onMounted } from 'vue';
+    import { onMounted, onUnmounted } from 'vue';
 
     const userStore = useUserStore();
     const router = useRouter();
     const route = useRoute();
     
     onMounted(async () => {
-        await userStore.usersShow(route.params.id);
+       await userStore.usersShow(route.params.id, router);
+    });
 
-        if(Object.keys(userStore.user).length <= 0) {
-            router.replace({ name: 'UsersIndex' });        
-        }
+    onUnmounted(() => {
+        userStore.user = {};
     });
 </script>
