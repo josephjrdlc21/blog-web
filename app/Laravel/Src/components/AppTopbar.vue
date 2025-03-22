@@ -30,7 +30,8 @@
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">
-                                    <span class="fw-semibold d-block">John Doe</span>
+                                    <span v-if="authStore.user" class="fw-semibold d-block">{{ authStore.user }}</span>
+                                    <span v-else class="fw-semibold d-block">NAME</span>
                                     <small class="text-muted">Admin</small>
                                 </div>
                             </div>
@@ -64,10 +65,10 @@
                             <div class="dropdown-divider"></div>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="auth-login-basic.html">
+                            <button @click="logout" class="dropdown-item" href="auth-login-basic.html">
                                 <i class="bx bx-power-off me-2"></i>
                                 <span class="align-middle">Log Out</span>
-                            </a>
+                            </button>
                         </li>
                     </ul>
                 </li>
@@ -77,7 +78,20 @@
 </template>
 
 <script setup>
+    import { useAuthStore } from '../store/authStore';
+
+    import { useRouter } from 'vue-router';
+
+    const authStore = useAuthStore();
+    const router = useRouter();
+
     const expandMenu = () => {
         document.documentElement.className = 'light-style layout-menu-fixed layout-menu-expanded';
+    };
+
+    const logout = async () => {
+        if(await authStore.logout()){
+            router.replace({ name: 'AuthLogin' });
+        }
     };
 </script>

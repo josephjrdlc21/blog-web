@@ -93,10 +93,9 @@
 
     import { useUserStore } from '../../store/userStore';
     import { onMounted, onUnmounted } from 'vue';
-    import { RouterLink, useRoute, useRouter } from 'vue-router';
+    import { RouterLink, useRouter } from 'vue-router';
 
     const userStore = useUserStore();
-    const route = useRoute();
     const router = useRouter();
 
     onMounted(async () => {

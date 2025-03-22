@@ -2,10 +2,10 @@
     <AuthLayout>
         <h4 class="mb-2">Welcome to Sneat! 👋</h4>
         <p class="mb-4">Please sign-in to your account and start the adventure</p>
-        <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+        <form @submit.prevent="login" id="formAuthentication" class="mb-3">
             <div class="mb-3">
                 <label for="email" class="form-label">Email or Username</label>
-                <input type="text" class="form-control" id="email" name="email-username" placeholder="Enter your email or username" autofocus/>
+                <input type="text" v-model="credentials.email" class="form-control" id="email" placeholder="Enter your email or username" autofocus/>
             </div>
             <div class="mb-3 form-password-toggle">
                 <div class="d-flex justify-content-between">
@@ -15,7 +15,7 @@
                     </a>
                 </div>
                 <div class="input-group input-group-merge">
-                    <input :type="isPasswordVisible ? 'password' : 'text'" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password"/>
+                    <input :type="isPasswordVisible ? 'password' : 'text'" v-model="credentials.password" id="password" class="form-control" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password"/>
                     <span class="input-group-text cursor-pointer" @click="togglePassword"><i :class="isPasswordVisible ? 'bx bx-hide' : 'bx bx-show'"></i></span>
                 </div>
             </div>
@@ -41,12 +41,26 @@
 <script setup>
     import AuthLayout from '../../layouts/AuthLayout.vue';
     
-    import { RouterLink } from 'vue-router';
+    import { useAuthStore } from '../../store/authStore';
+    import { RouterLink, useRouter } from 'vue-router';
     import { ref } from 'vue';
 
+    const authStore = useAuthStore();
+    const router = useRouter();
+
     const isPasswordVisible = ref(true);
+    const credentials = ref({email: '', password: ''});
 
     const togglePassword = () => {
         isPasswordVisible.value = !isPasswordVisible.value;
+    };
+
+    const login = async () => {
+        if(await authStore.login(credentials.value)) {
+            router.replace({ name: 'Index' });
+        }
+        else{
+            router.replace({ name: 'AuthLogin' });
+        }
     };
 </script>
