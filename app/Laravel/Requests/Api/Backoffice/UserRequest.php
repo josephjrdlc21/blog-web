@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Laravel\Requests\Api;
+namespace App\Laravel\Requests\Api\Backoffice;
 
 use App\Laravel\Requests\ApiRequestManager;
 

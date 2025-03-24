@@ -73,8 +73,8 @@
     };
 
     const isActive = (path) => {
-        if (path === "/") {
-            return route.path === "/";
+        if (path === "/backoffice/") {
+            return route.path === "/backoffice/";
         }
         
         return route.path.startsWith(path);

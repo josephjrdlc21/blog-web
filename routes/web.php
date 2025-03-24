@@ -12,7 +12,4 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/{any}', function () {
-    return view('main');
-})->where('any', '.*');
+include_once app_path('Laravel/Routes/Web.php');

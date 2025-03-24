@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Laravel\Controllers\Api;
+namespace App\Laravel\Controllers\Api\Backoffice;
 
 use App\Laravel\Models\User;
 
@@ -9,7 +9,7 @@ use App\Laravel\Requests\PageRequest;
 
 use App\Laravel\Traits\ResponseGenerator;
 
-use App\Laravel\Transformers\UserTransformer;
+use App\Laravel\Transformers\Backoffice\UserTransformer;
 use App\Laravel\Transformers\TransformerManager;
 
 use DB;
@@ -27,7 +27,7 @@ class AuthenticateController extends Controller{
         parent::__construct();
         $this->transformer = new TransformerManager;
         $this->response = ['msg' => "Bad Request.", "status" => false, 'status_code' => "BAD_REQUEST"];
-        $this->guard = "api";
+        $this->guard = "backoffice";
     }
 
     public function authenticate(PageRequest $request){

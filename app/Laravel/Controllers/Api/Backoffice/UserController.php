@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Laravel\Controllers\Api;
+namespace App\Laravel\Controllers\Api\Backoffice;
 
 use App\Laravel\Models\User;
 
 use App\Laravel\Requests\PageRequest;
-use App\Laravel\Requests\Api\UserRequest;
+use App\Laravel\Requests\Api\Backoffice\UserRequest;
 
 use App\Laravel\Traits\ResponseGenerator;
 
-use App\Laravel\Transformers\UserTransformer;
+use App\Laravel\Transformers\Backoffice\UserTransformer;
 use App\Laravel\Transformers\TransformerManager;
 
 use DB,Str;

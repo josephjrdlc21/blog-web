@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Laravel\Controllers\Api;
+namespace App\Laravel\Controllers\Api\Customer;
 
 use App\Laravel\Controllers\Controller as BaseController;
 
