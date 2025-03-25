@@ -43,7 +43,7 @@
             </a>
         </div>
         <ul class="menu-inner py-1">
-            <li :class="{ 'menu-item': true, 'active': isActive('/') }">
+            <li :class="{ 'menu-item': true, 'active': isActive('/backoffice/') }">
                 <RouterLink :to="{name: 'Index'}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-home-circle"></i>
                     <div data-i18n="Analytics">Dashboard</div>
@@ -52,7 +52,7 @@
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">Pages</span>
             </li>
-            <li :class="{ 'menu-item': true, 'active': isActive('/users') }">
+            <li :class="{ 'menu-item': true, 'active': isActive('/backoffice/users') }">
                 <RouterLink :to="{name: 'UsersIndex'}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-dock-top"></i>
                     <div data-i18n="Accounts">Accounts</div>
@@ -77,6 +77,6 @@
             return route.path === "/backoffice/";
         }
         
-        return route.path.startsWith(path);
+        return route.path.startsWith(path) && route.path !== "/backoffice/";
     };
 </script>

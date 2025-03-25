@@ -15,6 +15,11 @@ class CustomValidator extends Validator
         return preg_match(("/^(?=.*)[A-Za-z\d][a-z\d._+]{6,20}$/"), $value);
     }
 
+    public function validatePasswordFormat($attribute, $value, $parameters)
+    {
+        return preg_match(("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-.]).{8,}$/"), $value);
+    }
+
     public function validateUniqueUsername($attribute, $value, $parameters)
     {
         $account_id = (is_array($parameters) and isset($parameters[0])) ? $parameters[0] : "";

@@ -10,7 +10,6 @@
 </template>
 
 <script setup>
-    import { onUnmounted } from 'vue';
     import { useErrorStore } from '../store/errorStore';
 
     const errorStore = useErrorStore();

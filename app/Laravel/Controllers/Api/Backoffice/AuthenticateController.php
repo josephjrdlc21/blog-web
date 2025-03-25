@@ -5,14 +5,14 @@ namespace App\Laravel\Controllers\Api\Backoffice;
 use App\Laravel\Models\User;
 
 use App\Laravel\Requests\PageRequest;
-//use App\Laravel\Requests\Api\RegisterRequest;
+use App\Laravel\Requests\Api\Backoffice\RegisterRequest;
 
 use App\Laravel\Traits\ResponseGenerator;
 
 use App\Laravel\Transformers\Backoffice\UserTransformer;
 use App\Laravel\Transformers\TransformerManager;
 
-use DB;
+use DB,Str;
 
 class AuthenticateController extends Controller{
     use ResponseGenerator;
@@ -31,7 +31,7 @@ class AuthenticateController extends Controller{
     }
 
     public function authenticate(PageRequest $request){
-        $email = $request->input('email');
+        $email = Str::lower($request->input('email'));
         $password = $request->input('password');
 
         if(!$token = auth($this->guard)->attempt(['email' => $email, 'password' => $password])){
@@ -52,6 +52,46 @@ class AuthenticateController extends Controller{
         $this->response['token_type'] = "Bearer";
         $this->response['data'] = $this->transformer->transform($user, new UserTransformer, 'item');
         $this->response_code = 200;
+
+        callback:
+        return response()->json($this->api_response($this->response), $this->response_code);
+    }
+
+    public function register(RegisterRequest $request){
+        DB::beginTransaction();
+        try{
+            $password = Str::random(8);
+
+            $user = new User;
+            $user->firstname = Str::upper($request->input('firstname'));
+            $user->middlename = Str::upper($request->input('middlename'));
+            $user->lastname = Str::upper($request->input('lastname'));
+            $user->suffix = Str::upper($request->input('suffix'));
+            $user->username = Str::lower($request->input('username'));
+            $user->type = "author";
+            $user->email = Str::lower($request->input('email'));
+            $user->password = bcrypt($password);
+            $user->save();
+
+            DB::commit();
+
+            $token = auth($this->guard)->tokenById($user->id);
+
+            $this->response['status'] = true;
+            $this->response['status_code'] = "USER_REGISTERED";
+            $this->response['msg'] = "You have been registered {$user->name}.";
+            $this->response['token'] = $token;
+            $this->response['token_type'] = "Bearer";
+            $this->response['data'] = $this->transformer->transform($user, new UserTransformer(), 'item');
+            $this->response_code = 201;
+
+            goto callback;
+        }catch(\Exception $e){
+            DB::rollback();
+
+            $error = $this->db_error($e->getLine());
+            return response()->json($error['body'], $error['code']);
+        }
 
         callback:
         return response()->json($this->api_response($this->response), $this->response_code);

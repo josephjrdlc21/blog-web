@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { useErrorStore } from "./errorStore";
 import axios from "axios";
 
 export const useAuthStore = defineStore("auth", {
@@ -8,10 +9,16 @@ export const useAuthStore = defineStore("auth", {
     }),
 
     getters: {
-
+        isAuthenticated: (state) => !!state.token,
     },
     
     actions: {
+        hydrate() {
+            if (this.token) {
+                axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
+            }
+        },
+        
         async login(data) {
             try {
                 const response = await axios.post(`${API_BASE_URL}/login`, data);
@@ -29,6 +36,29 @@ export const useAuthStore = defineStore("auth", {
                 console.log("Error " + error);
 
                 return false;
+            }
+        },
+
+        async register(data, router) {
+            const errorStore = useErrorStore();
+
+            try{
+                const response = await axios.post(`${API_BASE_URL}/register`, data);
+
+                this.token = response.data.token;
+                this.user = response.data.data.name;
+
+                localStorage.setItem('token', this.token);
+                localStorage.setItem('user', JSON.stringify(this.user));
+
+                axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
+
+                errorStore.setNotification("success", response.data, true);
+                router.replace({ name: 'Index' });
+            } catch(error) {
+                errorStore.setNotification("failed", error.response.data, true);
+
+                console.log("Error " + error);
             }
         },
 
