@@ -12,4 +12,4 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-include_once app_path('Laravel/Routes/Web.php');
+include_once app_path('Laravel/Routes/Backoffice.php');

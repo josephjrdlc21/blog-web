@@ -20,8 +20,10 @@ export const useAuthStore = defineStore("auth", {
         },
         
         async login(data) {
+            const errorStore = useErrorStore();
+
             try {
-                const response = await axios.post(`${API_BASE_URL}/login`, data);
+                const response = await axios.post(`${API_BASE_URL_BACKOFFICE}/login`, data);
 
                 this.token = response.data.token;
                 this.user = response.data.data.name;
@@ -31,8 +33,11 @@ export const useAuthStore = defineStore("auth", {
 
                 axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
 
+                errorStore.setNotification("success", response.data, true);
+
                 return true;
             } catch(error) {
+                errorStore.setNotification("failed", error.response.data, true);
                 console.log("Error " + error);
 
                 return false;
@@ -43,7 +48,7 @@ export const useAuthStore = defineStore("auth", {
             const errorStore = useErrorStore();
 
             try{
-                const response = await axios.post(`${API_BASE_URL}/register`, data);
+                const response = await axios.post(`${API_BASE_URL_BACKOFFICE}/register`, data);
 
                 this.token = response.data.token;
                 this.user = response.data.data.name;
@@ -63,11 +68,15 @@ export const useAuthStore = defineStore("auth", {
         },
 
         async logout() {
+            const errorStore = useErrorStore();
+
             try {
                 if(this.token){
-                    await axios.post(`${API_BASE_URL}/logout`, {}, {
+                    const response = await axios.post(`${API_BASE_URL_BACKOFFICE}/logout`, {}, {
                         headers: { Authorization: `Bearer ${this.token}`,},
                     });
+
+                    errorStore.setNotification("success", response.data, true);
                 }
             } catch (error) {
                 console.log("Error " + error);

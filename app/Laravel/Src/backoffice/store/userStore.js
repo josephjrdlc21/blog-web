@@ -17,7 +17,7 @@ export const useUserStore = defineStore("user", {
             const errorStore = useErrorStore();
 
             try {
-                const response = await axios.get(`${API_BASE_URL}/users`);
+                const response = await axios.get(`${API_BASE_URL_BACKOFFICE}/users`);
 
                 this.users = response.data.data;
             } catch(error) {
@@ -31,7 +31,7 @@ export const useUserStore = defineStore("user", {
             const errorStore = useErrorStore();
 
             try {
-                const response = await axios.post(`${API_BASE_URL}/users/store`, data);
+                const response = await axios.post(`${API_BASE_URL_BACKOFFICE}/users/store`, data);
 
                 errorStore.setNotification("success", response.data, true);
                 router.replace({ name: 'UsersIndex' });
@@ -46,7 +46,7 @@ export const useUserStore = defineStore("user", {
             const errorStore = useErrorStore();
 
             try {
-                const response = await axios.get(`${API_BASE_URL}/users/edit/${id}`);
+                const response = await axios.get(`${API_BASE_URL_BACKOFFICE}/users/edit/${id}`);
 
                 this.user = response.data.data;
             } catch (error) {
@@ -61,7 +61,7 @@ export const useUserStore = defineStore("user", {
             const errorStore = useErrorStore();
 
             try {
-                const response = await axios.post(`${API_BASE_URL}/users/update/${id}`, data);
+                const response = await axios.post(`${API_BASE_URL_BACKOFFICE}/users/update/${id}`, data);
 
                 errorStore.setNotification("success", response.data, true);
                 router.replace({ name: 'UsersIndex' });
