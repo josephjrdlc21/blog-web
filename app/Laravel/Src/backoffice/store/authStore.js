@@ -23,7 +23,7 @@ export const useAuthStore = defineStore("auth", {
             const errorStore = useErrorStore();
 
             try {
-                const response = await axios.post(`${API_BASE_URL_BACKOFFICE}/login`, data);
+                const response = await axios.post(`${API_BASE_URL}/backoffice/login`, data);
 
                 this.token = response.data.token;
                 this.user = response.data.data.name;
@@ -48,7 +48,7 @@ export const useAuthStore = defineStore("auth", {
             const errorStore = useErrorStore();
 
             try{
-                const response = await axios.post(`${API_BASE_URL_BACKOFFICE}/register`, data);
+                const response = await axios.post(`${API_BASE_URL}/backoffice/register`, data);
 
                 this.token = response.data.token;
                 this.user = response.data.data.name;
@@ -72,7 +72,7 @@ export const useAuthStore = defineStore("auth", {
 
             try {
                 if(this.token){
-                    const response = await axios.post(`${API_BASE_URL_BACKOFFICE}/logout`, {}, {
+                    const response = await axios.post(`${API_BASE_URL}/backoffice/logout`, {}, {
                         headers: { Authorization: `Bearer ${this.token}`,},
                     });
 

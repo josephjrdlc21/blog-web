@@ -30,6 +30,10 @@
                                     <input class="form-control" type="date" value="2021-06-18" id="input_to">
                                 </div>
                             </div>
+                            <div class="demo-inline-spacing">
+                                <button type="button" class="btn btn-sm btn-primary">Apply Filter</button>
+                                <button type="button" class="btn btn-sm btn-outline-primary">Reset Filter</button>                            
+                            </div>
                         </div>
                     </div>
                 </div>

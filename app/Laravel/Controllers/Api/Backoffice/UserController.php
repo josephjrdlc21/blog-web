@@ -12,7 +12,7 @@ use App\Laravel\Traits\ResponseGenerator;
 use App\Laravel\Transformers\Backoffice\UserTransformer;
 use App\Laravel\Transformers\TransformerManager;
 
-use DB,Str;
+use DB,Str,Carbon;
 
 class UserController extends Controller{
     use ResponseGenerator;
@@ -21,15 +21,60 @@ class UserController extends Controller{
     protected $data;
     protected $response;
     protected $response_code;
+    protected $per_page;
 
     public function __construct(){
         parent::__construct();
         $this->transformer = new TransformerManager;
         $this->response = ['msg' => "Bad Request.", "status" => false, 'status_code' => "BAD_REQUEST"];
+        $this->per_page = env("DEFAULT_PER_PAGE", 10);
     }
 
     public function index(PageRequest $request){
-        $users = User::get();
+        $this->data['keyword'] = Str::lower($request->get('keyword'));
+        $this->data['type'] = $request->get('type');
+        $this->data['status'] = $request->get('status');
+
+        $first_record = User::where('id','!=',1)->orderBy('created_at', 'ASC')->first();
+        $start_date = $request->get('start_date', now()->startOfMonth());
+        if ($first_record) {
+            $start_date = $request->get('start_date', $first_record->created_at->format("Y-m-d"));
+        }
+
+        $this->data['start_date'] = Carbon::parse($start_date)->format("Y-m-d");
+        $this->data['end_date'] = Carbon::parse($request->get('end_date', now()))->format("Y-m-d");
+
+        $users = User::where(function ($query) {
+            if(strlen($this->data['keyword']) > 0){
+                $query->whereRaw("LOWER(CONCAT(firstname, ' ',lastname)) LIKE '%{$this->data['keyword']}%'")
+                    ->orWhereRaw("LOWER(email) LIKE '%{$this->data['keyword']}%'")
+                    ->orWhereRaw("LOWER(username) LIKE '%{$this->data['keyword']}%'");
+            }
+        })
+        ->where(function ($query) {
+            if(strlen($this->data['type']) > 0){
+                $query->where('type', $this->data['type']);
+            }
+        })
+        ->where(function ($query) {
+            if(strlen($this->data['status']) > 0){
+                $query->where('status', $this->data['status']);
+            }
+        })
+        ->where(function ($query) {
+            $query->where(function ($q) {
+                if(strlen($this->data['start_date']) > 0) {
+                    $q->whereDate('created_at', '>=', Carbon::parse($this->data['start_date'])->format("Y-m-d"));
+                }
+            })->where(function ($q) {
+                if(strlen($this->data['end_date']) > 0) {
+                    $q->whereDate('created_at', '<=', Carbon::parse($this->data['end_date'])->format("Y-m-d"));
+                }
+            });
+        })
+        ->where('id','!=',1)
+        ->orderBy('created_at','DESC')
+        ->paginate($this->per_page);
 
         $this->response['status'] = true;
         $this->response['status_code'] = "USERS_LIST";
