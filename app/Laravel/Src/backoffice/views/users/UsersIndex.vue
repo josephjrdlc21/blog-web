@@ -59,7 +59,7 @@
                                 </thead>
                                 <tbody class="table-border-bottom-0">
                                     <tr v-if="userStore.users.length" v-for="user in userStore.users" :key="user.id">
-                                        <td>{{ user.name }}<br><small>{{ user.username }}</small></td>
+                                        <td><RouterLink :to="{ name: 'UsersShow', params: {id: user.id} }">{{ user.name }}</RouterLink><br><small>{{ user.username }}</small></td>
                                         <td>{{ user.email }}</td>
                                         <td><StatusBadge :status="user.status"/></td>
                                         <td>{{ user.type }}</td>
@@ -83,6 +83,9 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div style="padding-left: 20px; padding-right: 20px;">
+                            <Pagination />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -94,6 +97,7 @@
     import MainLayout from '../../layouts/MainLayout.vue';
     import StatusBadge from '../../components/AppStatusBadge.vue';
     import Notification from '../../components/AppNotification.vue';
+    import Pagination from '../../components/AppPagination.vue';
 
     import { useUserStore } from '../../store/userStore';
     import { onMounted, onUnmounted } from 'vue';
