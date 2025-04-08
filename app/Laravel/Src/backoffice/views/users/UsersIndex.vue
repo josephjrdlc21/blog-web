@@ -58,7 +58,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0">
-                                    <tr v-if="userStore.users.length" v-for="user in userStore.users" :key="user.id">
+                                    <tr v-if="userStore.users.data && userStore.users.data.length" v-for="user in userStore.users.data" :key="user.id">
                                         <td><RouterLink :to="{ name: 'UsersShow', params: {id: user.id} }">{{ user.name }}</RouterLink><br><small>{{ user.username }}</small></td>
                                         <td>{{ user.email }}</td>
                                         <td><StatusBadge :status="user.status"/></td>
@@ -84,7 +84,8 @@
                             </table>
                         </div>
                         <div style="padding-left: 20px; padding-right: 20px;">
-                            <Pagination />
+                            <p v-if="userStore.isUsersLoaded" class="mt-4">{{ userStore.paginationRange }}</p>
+                            <Bootstrap5Pagination :data="userStore.users" @pagination-change-page="getUsers" size="small"/>
                         </div>
                     </div>
                 </div>
@@ -97,20 +98,23 @@
     import MainLayout from '../../layouts/MainLayout.vue';
     import StatusBadge from '../../components/AppStatusBadge.vue';
     import Notification from '../../components/AppNotification.vue';
-    import Pagination from '../../components/AppPagination.vue';
 
     import { useUserStore } from '../../store/userStore';
     import { onMounted, onUnmounted } from 'vue';
     import { RouterLink, useRouter } from 'vue-router';
+    import { Bootstrap5Pagination } from 'laravel-vue-pagination';
 
     const userStore = useUserStore();
     const router = useRouter();
 
-    onMounted(async () => {
-        await userStore.usersIndex();
-    });
+    const getUsers = async (page = 1) => {
+        await userStore.usersIndex(page);
+    }
+
+    onMounted(getUsers);
 
     onUnmounted(() => {
+        userStore.isUsersLoaded = false;
         userStore.users = [];
     });
 

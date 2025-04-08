@@ -4,22 +4,36 @@ import axios from "axios";
 
 export const useUserStore = defineStore("user", {
     state: () => ({
-        users: [],
+        users: {
+            data: [],
+            current_page: 1,
+            last_page: 1,
+            per_page: 10,
+            total: 0,
+        },
         user: {},
+        isUsersLoaded: false,
     }),
 
     getters : {
-
+        paginationRange(state) {
+            const start = (state.users.current_page - 1) * state.users.per_page + 1;
+            const end = start + state.users.data.length - 1;
+            const total = state.users.total;
+      
+            return `Showing ${start} to ${end} of ${total} entries`;
+        }
     },
 
     actions: {
-        async usersIndex() {
+        async usersIndex(page) {
             const errorStore = useErrorStore();
 
             try {
-                const response = await axios.get(`${API_BASE_URL}/backoffice/users`);
+                const response = await axios.get(`${API_BASE_URL}/backoffice/users?page=${page}`);
 
                 this.users = response.data.data;
+                this.isUsersLoaded = true;
             } catch(error) {
                 errorStore.setNotification("failed", error.response.data, true);
 

@@ -79,7 +79,18 @@ class UserController extends Controller{
         $this->response['status'] = true;
         $this->response['status_code'] = "USERS_LIST";
         $this->response['msg'] = "List of Users";
-        $this->response['data'] = $this->transformer->transform($users, new UserTransformer(), 'collection');
+        $this->response['data'] = [
+            'data' => $this->transformer->transform($users, new UserTransformer(), 'collection'),
+            'current_page' => $users->currentPage(),
+            'last_page' => $users->lastPage(),
+            'per_page' => $users->perPage(),
+            'total' => $users->total(),
+            'next_page_url' => $users->nextPageUrl(),
+            'prev_page_url' => $users->previousPageUrl(),
+            'from' => $users->firstItem(),
+            'to' => $users->lastItem(),
+            'links' => $users->linkCollection(),
+        ];
         $this->response_code = 200;
 
         callback:
