@@ -4,24 +4,18 @@ import axios from "axios";
 
 export const useUserStore = defineStore("user", {
     state: () => ({
-        users: {
-            data: [],
-            current_page: 1,
-            last_page: 1,
-            per_page: 10,
-            total: 0,
-        },
+        users: {},
         user: {},
         isUsersLoaded: false,
     }),
 
     getters : {
         paginationRange(state) {
-            const start = (state.users.current_page - 1) * state.users.per_page + 1;
-            const end = start + state.users.data.length - 1;
-            const total = state.users.total;
-      
-            return `Showing ${start} to ${end} of ${total} entries`;
+            const from = state.users.from ?? 0;
+            const to = state.users.to ?? 0;
+            const total = state.users.total ?? 0;
+        
+            return `Showing ${from} to ${to} of ${total} entries`;
         }
     },
 
