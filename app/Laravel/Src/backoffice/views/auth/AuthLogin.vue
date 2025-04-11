@@ -3,7 +3,8 @@
         <Notification />
         <h4 class="mb-2">Welcome to Sneat! 👋</h4>
         <p class="mb-4">Please sign-in to your account and start the adventure</p>
-        <form @submit.prevent="login" id="formAuthentication" class="mb-3">
+        <p v-if="authStore.isLoading" >Logging in...</p>
+        <form v-else @submit.prevent="login" id="formAuthentication" class="mb-3">
             <div class="mb-3">
                 <label for="email" class="form-label">Email or Username</label>
                 <input type="text" v-model="credentials.email" class="form-control" id="email" placeholder="Enter your email or username" autofocus/>

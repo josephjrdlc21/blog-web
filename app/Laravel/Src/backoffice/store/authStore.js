@@ -6,6 +6,7 @@ export const useAuthStore = defineStore("auth", {
     state: () => ({
         token: localStorage.getItem('token') || null,
         user: JSON.parse(localStorage.getItem('user')) || null,
+        isLoading: false,
     }),
 
     getters: {
@@ -21,6 +22,7 @@ export const useAuthStore = defineStore("auth", {
         
         async login(data) {
             const errorStore = useErrorStore();
+            this.isLoading = true;
 
             try {
                 const response = await axios.post(`${API_BASE_URL}/backoffice/login`, data);
@@ -41,11 +43,14 @@ export const useAuthStore = defineStore("auth", {
                 console.log("Error " + error);
 
                 return false;
+            } finally {
+                this.isLoading = false;
             }
         },
 
         async register(data, router) {
             const errorStore = useErrorStore();
+            this.isLoading = true;
 
             try{
                 const response = await axios.post(`${API_BASE_URL}/backoffice/register`, data);
@@ -64,11 +69,14 @@ export const useAuthStore = defineStore("auth", {
                 errorStore.setNotification("failed", error.response.data, true);
 
                 console.log("Error " + error);
+            } finally {
+                this.isLoading = false;
             }
         },
 
         async logout() {
             const errorStore = useErrorStore();
+            this.isLoading = true;
 
             try {
                 if(this.token){
@@ -80,6 +88,8 @@ export const useAuthStore = defineStore("auth", {
                 }
             } catch (error) {
                 console.log("Error " + error);
+            } finally {
+                this.isLoading = false;
             }
       
             this.token = null;

@@ -2,6 +2,7 @@
     <MainLayout>
         <div class="container-xxl flex-grow-1 container-p-y">
             <Notification />
+            <p v-if="authStore.isLoading" class="mt-4 mb-4">Logging Out...</p>
             <div class="row">
                 <div class="col-lg-8 mb-4 order-0">
                     <div class="card">
@@ -32,4 +33,8 @@
 <script setup>
     import MainLayout from '../layouts/MainLayout.vue';
     import Notification from '../components/AppNotification.vue';
+
+    import { useAuthStore } from '../store/authStore';
+
+    const authStore = useAuthStore();
 </script>

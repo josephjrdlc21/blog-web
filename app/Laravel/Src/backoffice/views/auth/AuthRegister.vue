@@ -3,7 +3,8 @@
         <Notification />
         <h4 class="mb-2">Adventure starts here 🚀</h4>
         <p class="mb-4">Make your app management easy and fun!</p> 
-        <form @submit.prevent="register" id="formAuthentication" class="mb-3">
+        <p v-if="authStore.isLoading" >Submitting...</p>
+        <form v-else @submit.prevent="register" id="formAuthentication" class="mb-3">
             <div class="row mb-3">
                 <div class="col-lg-6 mb-3">
                     <label for="username" class="form-label">Username</label>

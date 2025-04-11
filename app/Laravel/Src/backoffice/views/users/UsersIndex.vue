@@ -58,7 +58,10 @@
                                     </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0">
-                                    <tr v-if="userStore.users.data && userStore.users.data.length" v-for="user in userStore.users.data" :key="user.id">
+                                    <tr v-if="userStore.isLoading">
+                                        <td colspan="6" class="text-center">Loading...</td>
+                                    </tr>
+                                    <tr v-else-if="!userStore.isLoading && userStore.users.data && userStore.users.data.length" v-for="user in userStore.users.data" :key="user.id">
                                         <td><RouterLink :to="{ name: 'UsersShow', params: {id: user.id} }">{{ user.name }}</RouterLink><br><small>{{ user.username }}</small></td>
                                         <td>{{ user.email }}</td>
                                         <td><StatusBadge :status="user.status"/></td>
@@ -84,7 +87,7 @@
                             </table>
                         </div>
                         <div style="padding-left: 20px; padding-right: 20px;">
-                            <p v-if="userStore.isUsersLoaded" class="mt-4">{{ userStore.paginationRange }}</p>
+                            <p v-if="!userStore.isLoading" class="mt-4">{{ userStore.paginationRange }}</p>
                             <Bootstrap5Pagination :data="userStore.users" @pagination-change-page="getUsers" size="small"/>
                         </div>
                     </div>

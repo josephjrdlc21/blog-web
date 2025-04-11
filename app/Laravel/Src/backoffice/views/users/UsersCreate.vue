@@ -8,7 +8,8 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title mb-4">Create User</h5>
-                            <form @submit.prevent="handleSubmit">
+                            <p v-if="userStore.isLoading" >Submitting...</p>
+                            <form v-else @submit.prevent="handleSubmit">
                                 <div class="row">
                                     <div class="col-lg-6 mb-3">
                                         <label for="input_firstname" class="form-label">First Name</label>

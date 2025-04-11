@@ -6,7 +6,7 @@ export const useUserStore = defineStore("user", {
     state: () => ({
         users: {},
         user: {},
-        isUsersLoaded: false,
+        isLoading: false,
     }),
 
     getters : {
@@ -22,21 +22,24 @@ export const useUserStore = defineStore("user", {
     actions: {
         async usersIndex(page) {
             const errorStore = useErrorStore();
+            this.isLoading = true;
 
             try {
                 const response = await axios.get(`${API_BASE_URL}/backoffice/users?page=${page}`);
 
                 this.users = response.data.data;
-                this.isUsersLoaded = true;
             } catch(error) {
                 errorStore.setNotification("failed", error.response.data, true);
 
                 console.log("Error " + error);
+            } finally {
+                this.isLoading = false;
             }
         },
 
         async usersCreate(data, router) {
             const errorStore = useErrorStore();
+            this.isLoading = true;
 
             try {
                 const response = await axios.post(`${API_BASE_URL}/backoffice/users/store`, data);
@@ -47,6 +50,8 @@ export const useUserStore = defineStore("user", {
                 errorStore.setNotification("failed", error.response.data, true);
 
                 console.log("Error " + error);
+            } finally {
+                this.isLoading = false;
             }
         },
 
@@ -67,6 +72,7 @@ export const useUserStore = defineStore("user", {
 
         async usersUpdate(id, data, router) {
             const errorStore = useErrorStore();
+            this.isLoading = true;
 
             try {
                 const response = await axios.post(`${API_BASE_URL}/backoffice/users/update/${id}`, data);
@@ -77,6 +83,8 @@ export const useUserStore = defineStore("user", {
                 errorStore.setNotification("failed", error.response.data, true);
 
                 console.log("Error " + error);
+            } finally {
+                this.isLoading = false;
             }
         },
 
@@ -101,6 +109,7 @@ export const useUserStore = defineStore("user", {
 
         async usersShow(id, router) {
             const errorStore = useErrorStore();
+            this.isLoading = true;
 
             try {
                 const response = await axios.get(`${API_BASE_URL}/backoffice/users/show/${id}`);
@@ -111,6 +120,8 @@ export const useUserStore = defineStore("user", {
                 router.replace({ name: 'UsersIndex' });
 
                 console.log("Error " + error);
+            } finally {
+                this.isLoading = false;
             }
         },
     },

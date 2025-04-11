@@ -7,7 +7,12 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title mb-4">Account Information</h5>
-                            <div v-if="userStore.user" class="row">
+                            <div v-if="userStore.isLoading" class="row">
+                                <div class="col-12 mb-2">
+                                    <p>Loading...</p>
+                                </div>
+                            </div>
+                            <div v-else-if="!userStore.isLoading && userStore.user" class="row">
                                 <div class="col-md-6 mb-2">
                                     <h6><b>Name</b></h6>
                                     <p>{{ userStore.user.name }}</p>
