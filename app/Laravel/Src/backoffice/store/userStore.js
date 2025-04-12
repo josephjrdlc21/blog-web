@@ -20,12 +20,12 @@ export const useUserStore = defineStore("user", {
     },
 
     actions: {
-        async usersIndex(page) {
+        async usersIndex(page, filter) {
             const errorStore = useErrorStore();
             this.isLoading = true;
-
+            
             try {
-                const response = await axios.get(`${API_BASE_URL}/backoffice/users?page=${page}`);
+                const response = await axios.get(`${API_BASE_URL}/backoffice/users?keyword=${filter.keyword}&type=${filter.type}&status=${filter.status}&start_date=${filter.from}&end_date=${filter.to}&page=${page}`);
 
                 this.users = response.data.data;
             } catch(error) {

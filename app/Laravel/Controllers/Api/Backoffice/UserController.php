@@ -36,10 +36,7 @@ class UserController extends Controller{
         $this->data['status'] = $request->get('status');
 
         $first_record = User::where('id','!=',1)->orderBy('created_at', 'ASC')->first();
-        $start_date = $request->get('start_date', now()->startOfMonth());
-        if ($first_record) {
-            $start_date = $request->get('start_date', $first_record->created_at->format("Y-m-d"));
-        }
+        $start_date = $request->get('start_date') ?? ($first_record?->created_at?->format('Y-m-d') ?? now()->startOfMonth()->format('Y-m-d'));
 
         $this->data['start_date'] = Carbon::parse($start_date)->format("Y-m-d");
         $this->data['end_date'] = Carbon::parse($request->get('end_date', now()))->format("Y-m-d");
@@ -80,6 +77,14 @@ class UserController extends Controller{
         $this->response['status_code'] = "USERS_LIST";
         $this->response['msg'] = "List of Users";
         $this->response['data'] = [
+            'start_date' => $this->data['start_date'],
+            'end_date' => $this->data['end_date'],
+            'keyword' => $this->data['keyword'],
+            'type' => $this->data['type'],
+            'status' => $this->data['status'],
+            'statuses' => ['' => "All", 'active' => "Active", 'inactive' => "Inactive"],
+            'types' => ['' => "All", 'admin' => "Admin", 'author' => "Author"],
+            
             'data' => $this->transformer->transform($users, new UserTransformer(), 'collection'),
             'current_page' => $users->currentPage(),
             'last_page' => $users->lastPage(),

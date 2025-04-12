@@ -5,37 +5,51 @@
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Accounts /</span> Users</h4>
             <div class="row">
                 <div class="col-12 mb-4 order-0">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title mb-4">Advanced Filters</h5>
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <label for="input_keyword" class="form-label">Keyword</label>
-                                    <input type="text" class="form-control" id="input_keyword" placeholder="e.g, Name, Username, Email">
+                    <form @submit.prevent="getUsers">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title mb-4">Advanced Filters</h5>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <label for="input_keyword" class="form-label">Keyword</label>
+                                        <input type="text" v-model="filter.keyword" class="form-control" id="input_keyword" placeholder="e.g, Name, Username, Email">
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label for="input_type" class="form-label">Type</label>
+                                        <select v-if="userStore.users?.types" v-model="filter.type" class="form-select" id="input_type">
+                                            <option v-for="[value, label] in Object.entries(userStore.users.types)" :key="value" :value="value">
+                                                {{ label }}
+                                            </option> 
+                                        </select>
+                                        <input v-else type="text" class="form-control" id="input_types" placeholder="All" readonly>                                 
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label for="input_status" class="form-label">Status</label>
+                                        <select v-if="userStore.users?.statuses" v-model="filter.status" class="form-select" id="input_status">
+                                            <option v-for="[value, label] in Object.entries(userStore.users.statuses)" :key="value" :value="value">
+                                                {{ label }}
+                                            </option> 
+                                        </select>
+                                        <input v-else type="text" class="form-control" id="input_status" placeholder="All" readonly>                                                               
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label for="input_from" class="form-label">From</label>
+                                        <input v-if="userStore.users?.start_date" class="form-control" v-model="filter.from" type="date" id="input_from">
+                                        <input v-else class="form-control" type="date" id="input_from">
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label for="input_to" class="form-label">To</label>
+                                        <input v-if="userStore.users?.end_date" class="form-control" v-model="filter.to" type="date" id="input_to">
+                                        <input v-else class="form-control" type="date" id="input_to">
+                                    </div>
                                 </div>
-                                <div class="col-lg-2">
-                                    <label for="input_type" class="form-label">Type</label>
-                                    <input type="text" class="form-control" id="input_type" placeholder="All">
+                                <div class="demo-inline-spacing">
+                                    <button type="submit" class="btn btn-sm btn-primary">Apply Filter</button>
+                                    <button class="btn btn-sm btn-outline-primary" @click="resetFilter">Reset Filter</button>
                                 </div>
-                                <div class="col-lg-2">
-                                    <label for="input_status" class="form-label">Status</label>
-                                    <input type="text" class="form-control" id="input_status" placeholder="All">
-                                </div>
-                                <div class="col-lg-2">
-                                    <label for="input_from" class="form-label">From</label>
-                                    <input class="form-control" type="date" value="2021-06-18" id="input_from">
-                                </div>
-                                <div class="col-lg-2">
-                                    <label for="input_to" class="form-label">To</label>
-                                    <input class="form-control" type="date" value="2021-06-18" id="input_to">
-                                </div>
-                            </div>
-                            <div class="demo-inline-spacing">
-                                <button type="button" class="btn btn-sm btn-primary">Apply Filter</button>
-                                <button type="button" class="btn btn-sm btn-outline-primary">Reset Filter</button>                            
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="col-12 mb-4 order-0">
                     <div class="card">
@@ -103,22 +117,38 @@
     import Notification from '../../components/AppNotification.vue';
 
     import { useUserStore } from '../../store/userStore';
-    import { onMounted, onUnmounted } from 'vue';
+    import { onMounted, onUnmounted, ref } from 'vue';
     import { RouterLink, useRouter } from 'vue-router';
     import { Bootstrap5Pagination } from 'laravel-vue-pagination';
 
     const userStore = useUserStore();
     const router = useRouter();
 
+    const filter = ref({
+        keyword: '',
+        type: '',
+        status: '',
+        from: '',
+        to: '',
+    });
+
     const getUsers = async (page = 1) => {
-        await userStore.usersIndex(page);
+        await userStore.usersIndex(page, filter.value);
     }
 
-    onMounted(getUsers);
+    onMounted(async () => {
+        await getUsers();
+
+        filter.value.keyword = userStore.users.keyword || '';
+        filter.value.type = userStore.users.type || '';
+        filter.value.status = userStore.users.status || '';
+        filter.value.from = userStore.users.start_date || '';
+        filter.value.to = userStore.users.end_date || '';
+    });
 
     onUnmounted(() => {
         userStore.isUsersLoaded = false;
-        userStore.users = [];
+        userStore.users = {};
     });
 
     const handleDelete = async (id) => {
@@ -127,5 +157,9 @@
         if (isConfirmed) {
             await userStore.usersDelete(id, router);
         }    
+    }
+
+    const resetFilter = () => {
+        router.go(0); 
     }
 </script>
