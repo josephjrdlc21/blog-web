@@ -12,7 +12,9 @@ use App\Laravel\Traits\ResponseGenerator;
 use App\Laravel\Transformers\Backoffice\UserTransformer;
 use App\Laravel\Transformers\TransformerManager;
 
-use DB,Str,Carbon;
+use App\Laravel\Events\UserCreated;
+
+use DB,Str,Carbon,Event;
 
 class UserController extends Controller{
     use ResponseGenerator;
@@ -120,9 +122,13 @@ class UserController extends Controller{
 
             DB::commit();
 
+            if(env('MAIL_SERVICE', false)){
+                Event::dispatch(new UserCreated($user, $password));
+            }
+
             $this->response['status'] = true;
             $this->response['status_code'] = "USERS_CREATED";
-            $this->response['msg'] = "User has been created.";
+            $this->response['msg'] = "User has been created. Default password was sent to email.";
             $this->response['data'] = $this->transformer->transform($user, new UserTransformer(), 'item');
             $this->response_code = 201;
 
