@@ -43,20 +43,80 @@
             </a>
         </div>
         <ul class="menu-inner py-1">
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Menu</span>
+            </li>
             <li :class="{ 'menu-item': true, 'active': isActive('/backoffice/') }">
                 <RouterLink :to="{name: 'Index'}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-home-circle"></i>
                     <div data-i18n="Analytics">Dashboard</div>
                 </RouterLink>
             </li>
-            <li class="menu-header small text-uppercase">
-                <span class="menu-header-text">Pages</span>
+            <li class="menu-item">
+                <a class="menu-link" href="javascript:void(0);">
+                    <i class="menu-icon tf-icons bx bx-book-bookmark"></i>
+                    <div data-i18n="Blogs">Blogs</div>
+                </a>
             </li>
             <li :class="{ 'menu-item': true, 'active': isActive('/backoffice/users') }">
                 <RouterLink :to="{name: 'UsersIndex'}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                    <i class="menu-icon tf-icons bx bx-user"></i>
                     <div data-i18n="Accounts">Accounts</div>
                 </RouterLink>
+            </li>
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">CMS</span>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link" href="javascript:void(0);">
+                    <i class="menu-icon tf-icons bx bx-category"></i>
+                    <div data-i18n="Categories">Categories</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link" href="javascript:void(0);">
+                    <i class="menu-icon tf-icons bx bx-file"></i>
+                    <div data-i18n="Pages">Pages</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link" href="javascript:void(0);">
+                    <i class="menu-icon tf-icons bx bx-help-circle"></i>
+                    <div data-i18n="FAQ">FAQ</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link" href="javascript:void(0);">
+                    <i class="menu-icon tf-icons bx bx-shield-quarter"></i>
+                    <div data-i18n="Policies">Privacy Policies</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link" href="javascript:void(0);">
+                    <i class="menu-icon tf-icons bx bx-file-blank"></i>
+                    <div data-i18n="Terms">Terms & Conditions</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link" href="javascript:void(0);">
+                    <i class="menu-icon tf-icons bx bx-cog"></i>
+                    <div data-i18n="Settings">Settings</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link" href="javascript:void(0);">
+                    <i class="menu-icon tf-icons bx bx-share-alt"></i>
+                    <div data-i18n="Media">Social Media</div>
+                </a>
+            </li>
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">System Settings</span>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link" href="javascript:void(0);">
+                    <i class="menu-icon tf-icons bx bx-history"></i>
+                    <div data-i18n="Audit">Audit Trail</div>
+                </a>
             </li>
         </ul>
     </aside>
