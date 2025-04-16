@@ -44,6 +44,8 @@ class AuthenticateController extends Controller{
         }
 
         $user = auth($this->guard)->user();
+        $user->last_login_at = now();
+        $user->save();
 
         $this->response['status'] = true;
         $this->response['status_code'] = "LOGIN_SUCCESS";
@@ -71,6 +73,7 @@ class AuthenticateController extends Controller{
             $user->type = "author";
             $user->email = Str::lower($request->input('email'));
             $user->password = bcrypt($password);
+            $user->last_login_at = now();
             $user->save();
 
             DB::commit();

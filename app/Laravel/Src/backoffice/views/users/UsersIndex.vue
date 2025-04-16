@@ -95,7 +95,7 @@
                                         </td>
                                     </tr>
                                     <tr v-else>
-                                        <td colspan="6" class="text-center">No records found</td>
+                                        <td colspan="6" class="text-center">No records found.</td>
                                     </tr>
                                 </tbody>
                             </table>

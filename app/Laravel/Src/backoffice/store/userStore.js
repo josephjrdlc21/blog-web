@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { useErrorStore } from "./errorStore";
-import axios from "axios";
+import { userService } from "../services/backoffice/userService";
 
 export const useUserStore = defineStore("user", {
     state: () => ({
@@ -25,7 +25,7 @@ export const useUserStore = defineStore("user", {
             this.isLoading = true;
             
             try {
-                const response = await axios.get(`${API_BASE_URL}/backoffice/users?keyword=${filter.keyword}&type=${filter.type}&status=${filter.status}&start_date=${filter.from}&end_date=${filter.to}&page=${page}`);
+                const response = await userService.index(page, filter);
 
                 this.users = response.data.data;
             } catch(error) {
@@ -42,7 +42,7 @@ export const useUserStore = defineStore("user", {
             this.isLoading = true;
 
             try {
-                const response = await axios.post(`${API_BASE_URL}/backoffice/users/store`, data);
+                const response = await userService.create(data);
 
                 errorStore.setNotification("success", response.data, true);
                 router.replace({ name: 'UsersIndex' });
@@ -59,7 +59,7 @@ export const useUserStore = defineStore("user", {
             const errorStore = useErrorStore();
 
             try {
-                const response = await axios.get(`${API_BASE_URL}/backoffice/users/edit/${id}`);
+                const response = await userService.edit(id);
 
                 this.user = response.data.data;
             } catch (error) {
@@ -75,7 +75,7 @@ export const useUserStore = defineStore("user", {
             this.isLoading = true;
 
             try {
-                const response = await axios.post(`${API_BASE_URL}/backoffice/users/update/${id}`, data);
+                const response = await userService.update(id, data);
 
                 errorStore.setNotification("success", response.data, true);
                 router.replace({ name: 'UsersIndex' });
@@ -92,7 +92,7 @@ export const useUserStore = defineStore("user", {
             const errorStore = useErrorStore();
 
             try {
-                const response = await axios.delete(`${API_BASE_URL}/backoffice/users/delete/${id}`);
+                const response = await userService.destroy(id);
                 
                 errorStore.setNotification("success", response.data, true);
                 
@@ -112,7 +112,7 @@ export const useUserStore = defineStore("user", {
             this.isLoading = true;
 
             try {
-                const response = await axios.get(`${API_BASE_URL}/backoffice/users/show/${id}`);
+                const response = await userService.show(id);
 
                 this.user = response.data.data;
             } catch(error) {
