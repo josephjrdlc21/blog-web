@@ -34,7 +34,9 @@ class AuthenticateController extends Controller{
         $email = Str::lower($request->input('email'));
         $password = $request->input('password');
 
-        if(!$token = auth($this->guard)->attempt(['email' => $email, 'password' => $password])){
+        $field = filter_var($email, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+        if(!$token = auth($this->guard)->attempt([$field => $email, 'password' => $password])){
             $this->response['status'] = false;
             $this->response['status_code'] = "UNAUTHORIZED";
             $this->response['msg'] = "Invalid account credentials.";
