@@ -160,7 +160,13 @@
         }
     }
 
-    const resetFilter = () => {
-        router.go(0); 
+    const resetFilter = async () => {
+        filter.value.keyword = '';
+        filter.value.type = '';
+        filter.value.status = '';
+        filter.value.from = '';
+        filter.value.to = '';
+
+        await getUsers();
     }
 </script>
