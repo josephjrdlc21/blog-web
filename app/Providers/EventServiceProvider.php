@@ -7,6 +7,7 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 
+use App\Laravel\Services\EventListeners;
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -14,21 +15,19 @@ class EventServiceProvider extends ServiceProvider
      *
      * @var array<class-string, array<int, class-string>>
      */
-    protected $listen = [
-        Registered::class => [
-            SendEmailVerificationNotification::class,
-        ],
-        \App\Laravel\Events\UserCreated::class => [
-            \App\Laravel\Listeners\UserCreatedListener::class,
-        ],
-    ];
+    protected $listen = [];
+    
 
     /**
      * Register any events for your application.
      */
     public function boot(): void
     {
-        //
+        foreach (EventListeners::events() as $event => $listeners) {
+            foreach ($listeners as $listener) {
+                Event::listen($event, $listener);
+            }
+        }
     }
 
     /**
