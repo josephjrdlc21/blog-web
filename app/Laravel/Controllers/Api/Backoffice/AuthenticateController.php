@@ -46,6 +46,19 @@ class AuthenticateController extends Controller{
         }
 
         $user = auth($this->guard)->user();
+
+        if($user->status === "inactive"){
+            auth($this->guard)->logout();
+
+            $this->response['status'] = false;
+            $this->response['status_code'] = "USER_INACTIVE";
+            $this->response['msg'] = "Your account is inactive.";
+            $this->response['hint'] = "You must contact the administrator to activate your account.";
+            $this->response_code = 403;
+
+            goto callback;
+        }
+
         $user->last_login_at = now();
         $user->save();
 

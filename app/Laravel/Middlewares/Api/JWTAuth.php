@@ -24,11 +24,14 @@ class JWTAuth extends BaseMiddleware{
             }
 
             $user = auth($guard)->authenticate($token);
-        } catch (TokenExpiredException $e) {
+        } 
+        catch (TokenExpiredException $e) {
             return $this->respond('jwt.expired', 'token_expired', $e->getStatusCode(), [$e]);
-        } catch (JWTException $e) {
+        } 
+        catch (JWTException $e) {
             return $this->respond('jwt.invalid', 'token_invalid', $e->getStatusCode(), [$e]);
-        } catch (TokenBlacklistedException $e) {
+        } 
+        catch (TokenBlacklistedException $e) {
             return $this->respond('jwt.expired', 'token_invalid', $e->getStatusCode(), [$e]);
         }
 
@@ -39,18 +42,18 @@ class JWTAuth extends BaseMiddleware{
         return $next($request);
     }
 
- /**
+    /**
      * Fire event and return the response.
      *
      * @param  string   $event
      * @param  string   $error
-     * @param  int  $status
+     * @param  int      $status
      * @param  array    $payload
      * @return mixed
      */
     protected function respond($event, $error, $status, $payload = []){
         $response = [];
-        $response_code = 401;
+        $response_code = $status ?? 401;
 
         switch($error) {
             case 'token_not_provided':

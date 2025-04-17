@@ -90,20 +90,19 @@ export const useUserStore = defineStore("user", {
 
         async usersDelete(id, router){
             const errorStore = useErrorStore();
+            this.isLoading = true;
 
             try {
                 const response = await userService.destroy(id);
                 
                 errorStore.setNotification("success", response.data, true);
-                
-                await this.usersIndex(); 
-
-                router.replace({ name: 'UsersIndex' });
             } catch(error) {
                 errorStore.setNotification("failed", error.response.data, true);
                 router.replace({ name: 'UsersIndex' });
 
                 console.log("Error " + error);
+            } finally {
+                this.isLoading = false;
             }
         },
 

@@ -156,7 +156,8 @@
     
         if (isConfirmed) {
             await userStore.usersDelete(id, router);
-        }    
+            await getUsers();
+        }
     }
 
     const resetFilter = () => {
