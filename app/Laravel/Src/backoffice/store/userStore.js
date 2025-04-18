@@ -88,6 +88,44 @@ export const useUserStore = defineStore("user", {
             }
         },
 
+        async usersUpdateStatus(id, router) {
+            const errorStore = useErrorStore();
+            this.isLoading = true;
+
+            try {
+                const response = await userService.updateStatus(id);
+
+                this.user = response.data.data;
+                errorStore.setNotification("success", response.data, true);
+            } catch(error) {
+                errorStore.setNotification("failed", error.response.data, true);
+                router.replace({ name: 'UsersIndex' });
+
+                console.log("Error " + error);
+            } finally {
+                this.isLoading = false;
+            }
+        },
+
+        async usersUpdatePassword(id, router) {
+            const errorStore = useErrorStore();
+            this.isLoading = true;
+
+            try {
+                const response = await userService.updatePassword(id);
+
+                this.user = response.data.data;
+                errorStore.setNotification("success", response.data, true);
+            } catch(error) {
+                errorStore.setNotification("failed", error.response.data, true);
+                router.replace({ name: 'UsersIndex' });
+
+                console.log("Error " + error);
+            } finally {
+                this.isLoading = false;
+            }
+        },
+
         async usersDelete(id, router){
             const errorStore = useErrorStore();
             this.isLoading = true;

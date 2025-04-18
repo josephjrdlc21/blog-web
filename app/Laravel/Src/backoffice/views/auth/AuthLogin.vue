@@ -61,7 +61,6 @@
     const togglePassword = () => {
         isPasswordVisible.value = !isPasswordVisible.value;
     };
-
     const login = async () => {
         if(await authStore.login(credentials.value)) {
             router.replace({ name: 'Index' });

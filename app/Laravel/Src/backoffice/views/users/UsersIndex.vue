@@ -89,6 +89,8 @@
                                                 <ul class="dropdown-menu" style="" data-bs-popper="static">
                                                     <li><RouterLink :to="{ name: 'UsersShow', params: {id: user.id} }" class="dropdown-item"> View Details</RouterLink></li>
                                                     <li><RouterLink :to="{ name: 'UsersEdit', params: {id: user.id} }" class="dropdown-item"> Edit Details</RouterLink></li>
+                                                    <li><button @click="updateUserStatus(user.id)" class="dropdown-item">{{ user.status ==='active' ? 'Deactivate Account' : 'Activate Account' }}</button></li>
+                                                    <li><button @click="updateUserPassword(user.id)" class="dropdown-item">Reset Password</button></li>
                                                     <li><button @click="handleDelete(user.id)" class="dropdown-item">Delete User</button></li>
                                                 </ul>
                                             </div>
@@ -123,14 +125,8 @@
 
     const userStore = useUserStore();
     const router = useRouter();
-
-    const filter = ref({
-        keyword: '',
-        type: '',
-        status: '',
-        from: '',
-        to: '',
-    });
+    
+    const filter = ref({keyword: '', type: '', status: '', from: '', to: '',});
 
     const getUsers = async (page = 1) => {
         await userStore.usersIndex(page, filter.value);
@@ -145,12 +141,27 @@
         filter.value.from = userStore.users.start_date || '';
         filter.value.to = userStore.users.end_date || '';
     });
-
     onUnmounted(() => {
         userStore.isUsersLoaded = false;
         userStore.users = {};
     });
 
+    const updateUserStatus = async (id) => {
+        const isConfirmed = confirm("Are you sure you want to change the status of this user?");
+    
+        if (isConfirmed) {
+            await userStore.usersUpdateStatus(id, status);
+            await getUsers();
+        }
+    }
+    const updateUserPassword = async (id) => {
+        const isConfirmed = confirm("Are you sure you want to reset the password of this user?");
+    
+        if (isConfirmed) {
+            await userStore.usersUpdatePassword(id);
+            await getUsers();
+        }
+    }
     const handleDelete = async (id) => {
         const isConfirmed = confirm("Are you sure you want to delete this user?");
     
@@ -159,7 +170,6 @@
             await getUsers();
         }
     }
-
     const resetFilter = async () => {
         filter.value.keyword = '';
         filter.value.type = '';

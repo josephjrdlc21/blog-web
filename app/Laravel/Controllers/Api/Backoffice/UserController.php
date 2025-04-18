@@ -12,7 +12,7 @@ use App\Laravel\Traits\ResponseGenerator;
 use App\Laravel\Transformers\Backoffice\UserTransformer;
 use App\Laravel\Transformers\TransformerManager;
 
-use App\Laravel\Events\UserCreated;
+use App\Laravel\Events\{UserCreated,UserPasswordUpdated};
 
 use DB,Str,Carbon,Event;
 
@@ -186,6 +186,78 @@ class UserController extends Controller{
             $this->response['status'] = true;
             $this->response['status_code'] = "USERS_UPDATED";
             $this->response['msg'] = "User has been updated.";
+            $this->response['data'] = $this->transformer->transform($user, new UserTransformer(), 'item');
+            $this->response_code = 200;
+
+            goto callback;
+        }catch(\Exception $e){
+            DB::rollback();
+
+            $error = $this->db_error($e->getLine());
+            return response()->json($error['body'], $error['code']);
+        }
+
+        callback:
+        return response()->json($this->api_response($this->response), $this->response_code);
+    }
+
+    public function update_status(PageRequest $request,$id = null){
+        $user = User::find($id);
+
+        if(!$user){
+            $error = $this->not_found_error();
+            return response()->json($error['body'], $error['code']);
+        }
+
+        DB::beginTransaction();
+        try{
+            $user->status = $user->status === 'active' ? 'inactive' : 'active';
+            $user->save();
+
+            DB::commit();
+
+            $this->response['status'] = true;
+            $this->response['status_code'] = "USERS_STATUS_UPDATED";
+            $this->response['msg'] = "User status has been set to {$user->status}.";
+            $this->response['data'] = $this->transformer->transform($user, new UserTransformer(), 'item');
+            $this->response_code = 200;
+
+            goto callback;
+        }catch(\Exception $e){
+            DB::rollback();
+
+            $error = $this->db_error($e->getLine());
+            return response()->json($error['body'], $error['code']);
+        }
+
+        callback:
+        return response()->json($this->api_response($this->response), $this->response_code);
+    }
+
+    public function update_password(PageRequest $request,$id = null){
+        $user = User::find($id);
+
+        if(!$user){
+            $error = $this->not_found_error();
+            return response()->json($error['body'], $error['code']);
+        }
+
+        DB::beginTransaction();
+        try{
+            $password = Str::random(8);
+
+            $user->password = bcrypt($password);
+            $user->save();
+
+            DB::commit();
+
+            if(env('MAIL_SERVICE', false)){
+                Event::dispatch(new UserPasswordUpdated($user, $password));
+            }
+
+            $this->response['status'] = true;
+            $this->response['status_code'] = "USERS_PASSWORD_UPDATED";
+            $this->response['msg'] = "User password has been updated.";
             $this->response['data'] = $this->transformer->transform($user, new UserTransformer(), 'item');
             $this->response_code = 200;
 

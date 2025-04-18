@@ -26,6 +26,14 @@ export const userService = {
         return api.post(`/backoffice/users/update/${id}`, data);
     },
 
+    updateStatus(id){
+        return api.get(`/backoffice/users/edit-status/${id}`);
+    },
+
+    updatePassword(id){
+        return api.get(`/backoffice/users/edit-password/${id}`);
+    },
+
     destroy(id) {
         return api.delete(`/backoffice/users/delete/${id}`);
     },

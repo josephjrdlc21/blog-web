@@ -68,7 +68,6 @@
     onMounted(async () => {
        await userStore.usersShow(route.params.id, router);
     });
-
     onUnmounted(() => {
         userStore.user = {};
     });

@@ -120,7 +120,6 @@
         data.value.user.type = userStore.user.type;
         data.value.user.email = userStore.user.email;
     });
-    
     onUnmounted(() => {
         userStore.user = {};
     });

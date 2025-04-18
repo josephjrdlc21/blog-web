@@ -8,6 +8,9 @@ class EventListeners {
             \App\Laravel\Events\UserCreated::class => [
                 \App\Laravel\Listeners\UserCreatedListener::class,
             ],
+            \App\Laravel\Events\UserPasswordUpdated::class => [
+                \App\Laravel\Listeners\UserPasswordUpdatedListener::class,
+            ],
         ];
     }
 }
