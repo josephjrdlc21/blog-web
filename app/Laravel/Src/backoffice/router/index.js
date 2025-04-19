@@ -11,6 +11,9 @@ import UsersShow from '../views/users/UsersShow.vue';
 import UsersCreate from '../views/users/UsersCreate.vue';
 import UsersEdit from '../views/users/UsersEdit.vue';
 
+import ProfileIndex from '../views/profile/ProfileIndex.vue';
+import ProfileChangePassword from '../views/profile/ProfileChangePassword.vue';
+
 import NotFound from '../views/errors/404.vue';
 
 const routes = [
@@ -23,6 +26,9 @@ const routes = [
     { path: '/backoffice/users/create', name: 'UsersCreate', component: UsersCreate, meta: { requiresAuth: true } },
     { path: '/backoffice/users/edit/:id', name: 'UsersEdit', component: UsersEdit, meta: { requiresAuth: true } },
     { path: '/backoffice/users/show/:id', name: 'UsersShow', component: UsersShow, meta: { requiresAuth: true } },
+
+    { path: '/backoffice/profile', name: 'ProfileIndex', component: ProfileIndex, meta: { requiresAuth: true } },
+    { path: '/backoffice/profile/change-password', name: 'ProfileChangePassword', component: ProfileChangePassword, meta: { requiresAuth: true } },
 
     { path: '/backoffice/:pathMatch(.*)*', name: 'NotFound', component: NotFound }
 ];

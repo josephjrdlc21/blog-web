@@ -130,16 +130,16 @@
 
     const getUsers = async (page = 1) => {
         await userStore.usersIndex(page, filter.value);
-    }
-
-    onMounted(async () => {
-        await getUsers();
 
         filter.value.keyword = userStore.users.keyword || '';
         filter.value.type = userStore.users.type || '';
         filter.value.status = userStore.users.status || '';
         filter.value.from = userStore.users.start_date || '';
         filter.value.to = userStore.users.end_date || '';
+    }
+
+    onMounted(async () => {
+        await getUsers();
     });
     onUnmounted(() => {
         userStore.isUsersLoaded = false;
@@ -150,7 +150,7 @@
         const isConfirmed = confirm("Are you sure you want to change the status of this user?");
     
         if (isConfirmed) {
-            await userStore.usersUpdateStatus(id, status);
+            await userStore.usersUpdateStatus(id, router);
             await getUsers();
         }
     }
@@ -158,7 +158,7 @@
         const isConfirmed = confirm("Are you sure you want to reset the password of this user?");
     
         if (isConfirmed) {
-            await userStore.usersUpdatePassword(id);
+            await userStore.usersUpdatePassword(id, router);
             await getUsers();
         }
     }

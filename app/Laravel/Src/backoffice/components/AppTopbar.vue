@@ -41,16 +41,16 @@
                             <div class="dropdown-divider"></div>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <RouterLink :to="{ name: 'ProfileIndex' }" class="dropdown-item">
                                 <i class="bx bx-user me-2"></i>
                                 <span class="align-middle">Profile</span>
-                            </a>
+                            </RouterLink>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <RouterLink :to="{ name: 'ProfileChangePassword' }" class="dropdown-item">
                                 <i class="bx bx-cog me-2"></i>
                                 <span class="align-middle">Settings</span>
-                            </a>
+                            </RouterLink>
                         </li>
                         <li>
                             <div class="dropdown-divider"></div>
@@ -71,7 +71,7 @@
 <script setup>
     import { useAuthStore } from '../store/authStore';
 
-    import { useRouter } from 'vue-router';
+    import { RouterLink, useRouter } from 'vue-router';
 
     const authStore = useAuthStore();
     const router = useRouter();
@@ -79,7 +79,6 @@
     const expandMenu = () => {
         document.documentElement.className = 'light-style layout-menu-fixed layout-menu-expanded';
     };
-
     const logout = async () => {
         if(await authStore.logout()){
             router.replace({ name: 'AuthLogin' });

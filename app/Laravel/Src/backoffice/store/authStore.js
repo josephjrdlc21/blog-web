@@ -6,6 +6,7 @@ export const useAuthStore = defineStore("auth", {
     state: () => ({
         token: null,
         user: null,
+        userId: null,
         isLoading: false,
     }),
 
@@ -23,6 +24,7 @@ export const useAuthStore = defineStore("auth", {
 
                 this.token = response.data.token;
                 this.user = response.data.data.name;
+                this.userId = response.data.data.id;
 
                 errorStore.setNotification("success", response.data, true);
                 return true;
@@ -45,6 +47,7 @@ export const useAuthStore = defineStore("auth", {
 
                 this.token = response.data.token;
                 this.user = response.data.data.name;
+                this.userId = response.data.data.id;
 
                 errorStore.setNotification("success", response.data, true);
                 router.replace({ name: 'Index' });
@@ -73,12 +76,13 @@ export const useAuthStore = defineStore("auth", {
 
             this.token = null;
             this.user = null;
+            this.userId = null;
 
             return true;
         },
     },
 
     persist: {
-        paths: ['token', 'user'],
+        paths: ['token', 'user', 'userId'],
     },
 });
