@@ -58,10 +58,12 @@
     import StatusBadge from '../../components/AppStatusBadge.vue';
     
     import { useUserStore } from '../../store/userStore';
+    import { useErrorStore } from '../../store/errorStore';
     import { RouterLink, useRoute, useRouter } from 'vue-router';
     import { onMounted, onUnmounted } from 'vue';
 
     const userStore = useUserStore();
+    const errorStore = useErrorStore();
     const router = useRouter();
     const route = useRoute();
     

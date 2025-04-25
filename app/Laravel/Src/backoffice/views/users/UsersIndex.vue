@@ -16,31 +16,27 @@
                                     </div>
                                     <div class="col-lg-2">
                                         <label for="input_type" class="form-label">Type</label>
-                                        <select v-if="userStore.users?.types" v-model="filter.type" class="form-select" id="input_type">
-                                            <option v-for="[value, label] in Object.entries(userStore.users.types)" :key="value" :value="value">
+                                        <select v-model="filter.type" class="form-select" id="input_type">
+                                            <option v-if="userStore.users?.types" v-for="[value, label] in Object.entries(userStore.users.types)" :key="value" :value="value">
                                                 {{ label }}
-                                            </option> 
+                                            </option>
                                         </select>
-                                        <input v-else type="text" class="form-control" id="input_types" placeholder="All" readonly>                                 
                                     </div>
                                     <div class="col-lg-2">
                                         <label for="input_status" class="form-label">Status</label>
-                                        <select v-if="userStore.users?.statuses" v-model="filter.status" class="form-select" id="input_status">
-                                            <option v-for="[value, label] in Object.entries(userStore.users.statuses)" :key="value" :value="value">
+                                        <select v-model="filter.status" class="form-select" id="input_status">
+                                            <option v-if="userStore.users?.statuses" v-for="[value, label] in Object.entries(userStore.users.statuses)" :key="value" :value="value">
                                                 {{ label }}
                                             </option> 
                                         </select>
-                                        <input v-else type="text" class="form-control" id="input_status" placeholder="All" readonly>                                                               
                                     </div>
                                     <div class="col-lg-2">
                                         <label for="input_from" class="form-label">From</label>
-                                        <input v-if="userStore.users?.start_date" class="form-control" v-model="filter.from" type="date" id="input_from">
-                                        <input v-else class="form-control" type="date" id="input_from">
+                                        <input class="form-control" v-model="filter.from" type="date" id="input_from">
                                     </div>
                                     <div class="col-lg-2">
                                         <label for="input_to" class="form-label">To</label>
-                                        <input v-if="userStore.users?.end_date" class="form-control" v-model="filter.to" type="date" id="input_to">
-                                        <input v-else class="form-control" type="date" id="input_to">
+                                        <input class="form-control" v-model="filter.to" type="date" id="input_to">
                                     </div>
                                 </div>
                                 <div class="demo-inline-spacing">
@@ -119,11 +115,13 @@
     import Notification from '../../components/AppNotification.vue';
 
     import { useUserStore } from '../../store/userStore';
+    import { useErrorStore } from '../../store/errorStore';
     import { onMounted, onUnmounted, ref } from 'vue';
     import { RouterLink, useRouter } from 'vue-router';
     import { Bootstrap5Pagination } from 'laravel-vue-pagination';
 
     const userStore = useUserStore();
+    const errorStore = useErrorStore();
     const router = useRouter();
     
     const filter = ref({keyword: '', type: '', status: '', from: '', to: '',});

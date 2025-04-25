@@ -8,8 +8,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title mb-4">Edit User</h5>
-                            <p v-if="userStore.isLoading">Updating Details...</p>
-                            <form v-else @submit.prevent="handleSubmit">
+                            <form @submit.prevent="handleSubmit">
                                 <div class="row">
                                     <div class="col-lg-6 mb-3">
                                         <label for="input_firstname" class="form-label">First Name</label>
@@ -65,7 +64,7 @@
                                 </div>
                                 <div class="demo-inline-spacing d-flex justify-content-end">
                                     <RouterLink :to="{ name: 'UsersIndex' }" class="btn btn-outline-secondary" @click="errorStore.validations = {}">Cancel</RouterLink>
-                                    <button type="submit" class="btn btn-primary">Save</button>                           
+                                    <button type="submit" class="btn btn-primary">{{userStore.isLoading ? 'Updating...' : 'Save' }}</button>                           
                                 </div>
                             </form>
                         </div>
