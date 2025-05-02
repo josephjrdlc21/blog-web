@@ -8,13 +8,13 @@
                     <form @submit.prevent="getUsers">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title mb-4">Advanced Filters</h5>
+                                <h5 class="card-title mb-1">Advanced Filters</h5>
                                 <div class="row">
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-4 mt-3">
                                         <label for="input_keyword" class="form-label">Keyword</label>
                                         <input type="text" v-model="filter.keyword" class="form-control" id="input_keyword" placeholder="e.g, Name, Username, Email">
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-4 mt-3">
                                         <label for="input_type" class="form-label">Type</label>
                                         <select v-model="filter.type" class="form-select" id="input_type">
                                             <option v-if="userStore.users?.types" v-for="[value, label] in Object.entries(userStore.users.types)" :key="value" :value="value">
@@ -22,7 +22,7 @@
                                             </option>
                                         </select>
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-4 mt-3">
                                         <label for="input_status" class="form-label">Status</label>
                                         <select v-model="filter.status" class="form-select" id="input_status">
                                             <option v-if="userStore.users?.statuses" v-for="[value, label] in Object.entries(userStore.users.statuses)" :key="value" :value="value">
@@ -30,11 +30,11 @@
                                             </option> 
                                         </select>
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-6 mt-3">
                                         <label for="input_from" class="form-label">From</label>
                                         <input class="form-control" v-model="filter.from" type="date" id="input_from">
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-6 mt-3">
                                         <label for="input_to" class="form-label">To</label>
                                         <input class="form-control" v-model="filter.to" type="date" id="input_to">
                                     </div>
@@ -50,7 +50,7 @@
                 <div class="col-12 mb-4 order-0">
                     <div class="card">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="card-header">Users</h5>
+                            <h5 class="card-header">Record Data</h5>
                             <div style="margin-right: 24px;">
                                 <RouterLink :to="{ name: 'UsersCreate' }" class="btn btn-primary">Create User</RouterLink>
                             </div>

@@ -48,8 +48,8 @@
                         </li>
                         <li>
                             <RouterLink :to="{ name: 'ProfileChangePassword' }" class="dropdown-item">
-                                <i class="bx bx-cog me-2"></i>
-                                <span class="align-middle">Settings</span>
+                                <i class="bx bx-lock me-2"></i>
+                                <span class="align-middle">Change Password</span>
                             </RouterLink>
                         </li>
                         <li>

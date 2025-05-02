@@ -86,7 +86,6 @@ class UserController extends Controller{
             'status' => $this->data['status'],
             'statuses' => ['' => "All", 'active' => "Active", 'inactive' => "Inactive"],
             'types' => ['' => "All", 'admin' => "Admin", 'author' => "Author"],
-            
             'data' => $this->transformer->transform($users, new UserTransformer(), 'collection'),
             'current_page' => $users->currentPage(),
             'last_page' => $users->lastPage(),

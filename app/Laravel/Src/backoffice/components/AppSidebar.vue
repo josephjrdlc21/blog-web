@@ -67,11 +67,11 @@
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">CMS</span>
             </li>
-            <li class="menu-item">
-                <a class="menu-link" href="javascript:void(0);">
+            <li :class="{ 'menu-item': true, 'active': isActive('/backoffice/categories') }">
+                <RouterLink :to="{name: 'CategoriesIndex'}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-category"></i>
                     <div data-i18n="Categories">Categories</div>
-                </a>
+                </RouterLink>
             </li>
             <li class="menu-item">
                 <a class="menu-link" href="javascript:void(0);">
