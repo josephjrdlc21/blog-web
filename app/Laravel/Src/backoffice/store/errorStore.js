@@ -42,4 +42,8 @@ export const useErrorStore = defineStore("error", {
             this.isPopUp = false;
         },
     },
+
+    persist: {
+        paths: ['notificationStatus', 'notificationMsg', 'validations', 'isPopUp'],
+    },
 });
