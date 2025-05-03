@@ -2,7 +2,7 @@
     <MainLayout>
         <div class="container-xxl flex-grow-1 container-p-y">
             <Notification />
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Categories /</span> List</h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">CMS /</span> <span class="text-muted fw-light">Categories /</span> List</h4>
             <div class="row">
                 <div class="col-12 mb-4 order-0">
                     <form>
@@ -36,7 +36,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="card-header">Record Data</h5>
                             <div style="margin-right: 24px;">
-                                <RouterLink to="" class="btn btn-primary">Create Category</RouterLink>
+                                <RouterLink :to="{ name: 'CategoriesCreate' }" class="btn btn-primary">Create Category</RouterLink>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -62,7 +62,7 @@
                                                     Action
                                                 </button>
                                                 <ul class="dropdown-menu" style="" data-bs-popper="static">
-                                                    <li><RouterLink to="" class="dropdown-item"> Edit Details</RouterLink></li>
+                                                    <li><RouterLink :to="{ name: 'CategoriesEdit', params: {id: '1'} }" class="dropdown-item"> Edit Details</RouterLink></li>
                                                     <li><RouterLink to="" class="dropdown-item"> Delete Category</RouterLink></li>
                                                 </ul>
                                             </div>
@@ -84,4 +84,6 @@
 <script setup>
     import MainLayout  from '../../layouts/MainLayout.vue';
     import Notification from '../../components/AppNotification.vue';
+
+    import { RouterLink } from 'vue-router';
 </script>

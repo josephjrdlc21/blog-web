@@ -2,7 +2,7 @@
     <MainLayout>
         <div class="container-xxl flex-grow-1 container-p-y">
             <Notification />
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Accounts /</span> <span class="text-muted fw-light">Users /</span>Create User</h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Accounts /</span> <span class="text-muted fw-light">Users /</span> Create User</h4>
             <div class="row">
                 <div class="col-lg-8 col-md-6 mb-4 order-0">
                     <div class="card">

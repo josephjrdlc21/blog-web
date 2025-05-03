@@ -12,6 +12,8 @@ import UsersCreate from '../views/users/UsersCreate.vue';
 import UsersEdit from '../views/users/UsersEdit.vue';
 
 import CategoriesIndex from '../views/categories/CategoriesIndex.vue';
+import CategoriesCreate from '../views/categories/CategoriesCreate.vue';
+import CategoriesEdit from '../views/categories/CategoriesEdit.vue';
 
 import ProfileIndex from '../views/profile/ProfileIndex.vue';
 import ProfileChangePassword from '../views/profile/ProfileChangePassword.vue';
@@ -30,6 +32,8 @@ const routes = [
     { path: '/backoffice/users/show/:id', name: 'UsersShow', component: UsersShow, meta: { requiresAuth: true } },
 
     { path: '/backoffice/categories', name: 'CategoriesIndex', component: CategoriesIndex, meta: { requiresAuth: true } },
+    { path: '/backoffice/categories/create', name: 'CategoriesCreate', component: CategoriesCreate, meta: { requiresAuth: true } },
+    { path: '/backoffice/categories/edit/:id', name: 'CategoriesEdit', component: CategoriesEdit, meta: { requiresAuth: true } },
 
     { path: '/backoffice/profile', name: 'ProfileIndex', component: ProfileIndex, meta: { requiresAuth: true } },
     { path: '/backoffice/profile/change-password', name: 'ProfileChangePassword', component: ProfileChangePassword, meta: { requiresAuth: true } },
