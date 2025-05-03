@@ -67,7 +67,7 @@ trait ResponseGenerator
     {
         $meta = [
             'meta' => [
-                'copyright' => "Copyright " . now()->format("Y") . " PSGC API",
+                'copyright' => "Copyright " . now()->format("Y") . " BLOG",
                 'authors' => [
                     "PSGC",
                 ],
