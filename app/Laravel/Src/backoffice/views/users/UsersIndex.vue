@@ -140,7 +140,6 @@
         await getUsers();
     });
     onUnmounted(() => {
-        userStore.isUsersLoaded = false;
         userStore.users = {};
     });
 

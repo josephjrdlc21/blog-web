@@ -13,35 +13,35 @@
                                     <div class="col-lg-6 mb-3">
                                         <label for="input_firstname" class="form-label">First Name</label>
                                         <input type="text" v-model="data.user.firstname" class="form-control" id="input_firstname" placeholder="firstname">
-                                        <small v-if="errorStore.validations.errors && errorStore.validations.errors.firstname" class="text-danger">
+                                        <small v-if="errorStore.validations.errors?.firstname" class="text-danger">
                                             {{ errorStore.validations.errors.firstname[0] }}
                                         </small>
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <label for="input_middlename" class="form-label">Middlename</label>
                                         <input type="text" v-model="data.user.middlename" class="form-control" id="input_middlename" placeholder="middlename">
-                                        <small v-if="errorStore.validations.errors && errorStore.validations.errors.middlename" class="text-danger">
+                                        <small v-if="errorStore.validations.errors?.middlename" class="text-danger">
                                             {{ errorStore.validations.errors.middlename[0] }}
                                         </small>
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <label for="input_lastname" class="form-label">Last Name</label>
                                         <input type="text" v-model="data.user.lastname" class="form-control" id="input_lastname" placeholder="lastname">
-                                        <small v-if="errorStore.validations.errors && errorStore.validations.errors.lastname" class="text-danger">
+                                        <small v-if="errorStore.validations.errors?.lastname" class="text-danger">
                                             {{ errorStore.validations.errors.lastname[0] }}
                                         </small>
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <label for="input_suffix" class="form-label">Suffix</label>
                                         <input type="text" v-model="data.user.suffix" class="form-control" id="input_suffix" placeholder="suffix">
-                                        <small v-if="errorStore.validations.errors && errorStore.validations.errors.suffix" class="text-danger">
+                                        <small v-if="errorStore.validations.errors?.suffix" class="text-danger">
                                             {{ errorStore.validations.errors.suffix[0] }}
                                         </small>
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <label for="input_username" class="form-label">Username</label>
                                         <input type="text" v-model="data.user.username" class="form-control" id="input_username" placeholder="username">
-                                        <small v-if="errorStore.validations.errors && errorStore.validations.errors.username" class="text-danger">
+                                        <small v-if="errorStore.validations.errors?.username" class="text-danger">
                                             {{ errorStore.validations.errors.username[0] }}
                                         </small>
                                     </div>
@@ -50,14 +50,14 @@
                                         <select v-model="data.user.type" class="form-select" id="input_type">
                                             <option v-for="type in data.types" :key="type.value" :value="type.value">{{ type.label }}</option>                                        
                                         </select>
-                                        <small v-if="errorStore.validations.errors && errorStore.validations.errors.type" class="text-danger">
+                                        <small v-if="errorStore.validations.errors?.type" class="text-danger">
                                             {{ errorStore.validations.errors.type[0] }}
                                         </small>
                                     </div>
                                     <div class="col-lg-12 mb-3">
                                         <label for="input_email" class="form-label">Email</label>
                                         <input type="text" v-model="data.user.email" class="form-control" id="input_email" placeholder="email">
-                                        <small v-if="errorStore.validations.errors && errorStore.validations.errors.email" class="text-danger">
+                                        <small v-if="errorStore.validations.errors?.email" class="text-danger">
                                             {{ errorStore.validations.errors.email[0] }}
                                         </small>
                                     </div>

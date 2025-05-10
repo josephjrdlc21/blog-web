@@ -8,16 +8,19 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title mb-4">Create Category</h5>
-                            <form>
+                            <form @submit.prevent="handleSubmit">
                                 <div class="row">
                                     <div class="col-lg-12 mb-3">
                                         <label for="input_category" class="form-label">Category</label>
-                                        <input type="text" class="form-control" id="input_category" placeholder="category">
+                                        <input type="text" v-model="data.category" class="form-control" id="input_category" placeholder="category">
+                                        <small v-if="errorStore.validations.errors?.category" class="text-danger">
+                                            {{ errorStore.validations.errors.category[0] }}
+                                        </small>
                                     </div>
                                 </div>
                                 <div class="demo-inline-spacing d-flex justify-content-end">
-                                    <RouterLink :to="{ name: 'CategoriesIndex' }" class="btn btn-outline-secondary">Cancel</RouterLink>
-                                    <button type="submit" class="btn btn-primary">Submit</button>                           
+                                    <RouterLink :to="{ name: 'CategoriesIndex' }" class="btn btn-outline-secondary" @click="errorStore.validations = {}">Cancel</RouterLink>
+                                    <button type="submit" class="btn btn-primary">{{ categoryStore.isLoading ? 'Loading..' : 'Submit' }}</button>                           
                                 </div>
                             </form>
                         </div>
@@ -32,4 +35,25 @@
     import MainLayout from '../../layouts/MainLayout.vue';
     import Notification from '../../components/AppNotification.vue';
     
+    import { useCategoryStore } from '../../store/categoryStore';
+    import { useErrorStore } from '../../store/errorStore';
+    import { RouterLink, useRouter } from 'vue-router';
+    import { onMounted, onUnmounted, ref } from 'vue';
+
+    const categoryStore = useCategoryStore();
+    const errorStore = useErrorStore();
+    const router = useRouter();
+
+    const data = ref({category: ''});
+
+    onMounted(() => {
+        categoryStore.category = {};
+    });
+    onUnmounted(() => {
+        categoryStore.category = {};
+    });
+
+    const handleSubmit = async () => {
+        await categoryStore.categoriesCreate(data.value, router);
+    }
 </script>
