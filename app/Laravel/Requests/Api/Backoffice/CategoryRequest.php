@@ -25,7 +25,7 @@ class CategoryRequest extends ApiRequestManager
         $id = $this->id ?? 0;
 
         $rules = [
-            'name' => "required"
+            'category' => "required|unique_category:{$id}"
         ];
 
         return $rules;
@@ -34,7 +34,8 @@ class CategoryRequest extends ApiRequestManager
     public function messages()
     {
         return [
-            'required' => "Field is required."
+            'required' => "Field is required.",
+            'unique_category' => "Category is already taken."
         ];
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Laravel\Services;
 
-use App\Laravel\Models\{User};
+use App\Laravel\Models\{User,Category};
 
 use Illuminate\Validation\Validator;
 
@@ -56,5 +56,13 @@ class CustomValidator extends Validator
 
                 break;
         }
+    }
+
+    public function validateUniqueCategory($attribute, $value, $parameters)
+    {
+        $category = strtoupper($value);
+        $id = (is_array($parameters) and isset($parameters[0])) ? $parameters[0] : "0";
+
+        return Category::where('name', $category)->where('id', '<>', $id)->count() ? false : true;
     }
 }

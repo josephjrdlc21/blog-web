@@ -81,4 +81,104 @@ class CategoryController extends Controller{
         callback:
         return response()->json($this->api_response($this->response), $this->response_code);
     }
+
+    public function store(CategoryRequest $request){
+        DB::beginTransaction();
+        try{
+            $category = new Category;
+            $category->name = Str::upper($request->input('category'));
+            $category->save();
+
+            DB::commit();
+
+            $this->response['status'] = true;
+            $this->response['status_code'] = "CATEGORY_CREATED";
+            $this->response['msg'] = "New category has been created.";
+            $this->response['data'] = $this->transformer->transform($category, new CategoryTransformer(), 'item');
+            $this->response_code = 201;
+
+            goto callback;
+        }catch(\Exception $e){
+            DB::rollback();
+
+            $error = $this->db_error($e->getLine());
+            return response()->json($error['body'], $error['code']);
+        }
+
+        callback:
+        return response()->json($this->api_response($this->response), $this->response_code);
+    }
+
+    public function edit(PageRequest $request,$id = null){
+        $category = Category::find($id);
+
+        if(!$category){
+            $error = $this->not_found_error();
+            return response()->json($error['body'], $error['code']);
+        }
+
+        $this->response['status'] = true;
+        $this->response['status_code'] = "EDIT_CATEGORY";
+        $this->response['msg'] = "Edit Category Details";
+        $this->response['data'] = $this->transformer->transform($category, new CategoryTransformer(), 'item');
+        $this->response_code = 200;
+        
+        callback:
+        return response()->json($this->api_response($this->response), $this->response_code);
+    }
+
+    public function update(CategoryRequest $request,$id = null){
+        $category = Category::find($id);
+
+        if(!$category){
+            $error = $this->not_found_error();
+            return response()->json($error['body'], $error['code']);
+        }
+
+        DB::beginTransaction();
+        try{
+            $category->name = Str::upper($request->input('category'));
+            $category->save();
+
+            DB::commit();
+
+            $this->response['status'] = true;
+            $this->response['status_code'] = "CATEGORY_UPDATED";
+            $this->response['msg'] = "Category has been updated.";
+            $this->response['data'] = $this->transformer->transform($category, new CategoryTransformer(), 'item');
+            $this->response_code = 200;
+
+            goto callback;
+        }catch(\Exception $e){
+            DB::rollback();
+
+            $error = $this->db_error($e->getLine());
+            return response()->json($error['body'], $error['code']);
+        }
+
+        callback:
+        return response()->json($this->api_response($this->response), $this->response_code);
+    }
+
+    public function destroy(PageRequest $request,$id = null){
+        $category = Category::find($id);
+
+        if(!$category){
+            $error = $this->not_found_error();
+            return response()->json($error['body'], $error['code']);
+        }
+
+        if($category->delete()){
+            $this->response['status'] = true;
+            $this->response['status_code'] = "CATEGORY_DELETED";
+            $this->response['msg'] = "Category has been deleted.";
+            $this->response['data'] = $this->transformer->transform($category, new CategoryTransformer(), 'item');
+            $this->response_code = 200;
+
+            goto callback;
+        }
+
+        callback:
+        return response()->json($this->api_response($this->response), $this->response_code);
+    }
 }

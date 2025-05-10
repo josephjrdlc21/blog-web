@@ -69,7 +69,7 @@ trait ResponseGenerator
             'meta' => [
                 'copyright' => "Copyright " . now()->format("Y") . " BLOG",
                 'authors' => [
-                    "PSGC",
+                    "BLOG",
                 ],
                 'jsonapi' => [
                     'version' => env("APP_VERSION"),
