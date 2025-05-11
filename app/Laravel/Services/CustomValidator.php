@@ -65,4 +65,41 @@ class CustomValidator extends Validator
 
         return Category::where('name', $category)->where('id', '<>', $id)->count() ? false : true;
     }
+
+    public function validateCurrentPassword($attribute, $value, $parameters)
+    {
+        $account_id   = (is_array($parameters) and isset($parameters[0])) ? $parameters[0] : "";
+        $account_type = (is_array($parameters) and isset($parameters[1])) ? $parameters[1] : "user";
+
+        switch (strtolower($account_type)) {
+            case '':
+
+                break;
+            default:
+                $user = User::find($account_id);
+
+                return Hash::check($value, $user->password);
+
+                break;
+        }
+    }
+
+    
+    public function validateIsNewPassword($attribute, $value, $parameters)
+    {
+        $account_id   = (is_array($parameters) and isset($parameters[0])) ? $parameters[0] : "";
+        $account_type = (is_array($parameters) and isset($parameters[1])) ? $parameters[1] : "user";
+
+        switch (strtolower($account_type)) {
+            case '':
+
+                break;
+            default:
+                $user = User::find($account_id);
+
+                return !Hash::check($value, $user->password);
+
+                break;
+        }
+    }
 }
