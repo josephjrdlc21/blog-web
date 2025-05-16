@@ -64,7 +64,6 @@ class ProfileController extends Controller{
             $auth->suffix = Str::upper($request->input('suffix'));
             $auth->username = Str::lower($request->input('username'));
             $auth->email = Str::lower($request->input('email'));
-            $auth->save();
 
             if($request->hasFile('image')){
                 $image = ImageUploader::upload($request->file('image'), "uploads/profile/{$auth->id}");
@@ -73,8 +72,9 @@ class ProfileController extends Controller{
                 $auth->directory = $image['directory'];
                 $auth->filename  = $image['filename'];
                 $auth->source    = $image['source'];
-                $auth->save();
             }
+
+            $auth->save();
 
             DB::commit();
 

@@ -26,10 +26,6 @@ class ProfileRequest extends ApiRequestManager
 
         $rules = [];
 
-        $segment2 = request()->segment(2);
-        $segment3 = request()->segment(3);
-        $segment4 = request()->segment(4);
-
         if (request()->path() === 'api/backoffice/profile/edit'){    
             $rules = [
                 'firstname' => "required",

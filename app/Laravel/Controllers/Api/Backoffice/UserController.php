@@ -37,7 +37,7 @@ class UserController extends Controller{
         $this->data['type'] = $request->get('type');
         $this->data['status'] = $request->get('status');
 
-        $first_record = User::where('id','!=',1)->orderBy('created_at', 'ASC')->first();
+        $first_record = User::where('id','!=',1)->where('id','!=',$this->data['auth']->id)->orderBy('created_at', 'ASC')->first();
         $start_date = $request->get('start_date') ?? ($first_record?->created_at?->format('Y-m-d') ?? now()->startOfMonth()->format('Y-m-d'));
 
         $this->data['start_date'] = Carbon::parse($start_date)->format("Y-m-d");
@@ -72,6 +72,7 @@ class UserController extends Controller{
             });
         })
         ->where('id','!=',1)
+        ->where('id','!=',$this->data['auth']->id)        
         ->orderBy('created_at','DESC')
         ->paginate($this->per_page);
 
