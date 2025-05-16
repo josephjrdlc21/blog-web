@@ -25,10 +25,7 @@ class ProfileTransformer extends TransformerAbstract{
 			'suffix' =>  $user->suffix,
             'username' => $user->username,
 			'email' => $user->email,
-            'source' => $user->source,
-            'filename' => $user->filename,
-            'path' => $user->path,
-            'directory' => $user->directory,
+			'avatar' => $user->directory ? $this->image_response($user->directory, $user->path, $user->filename) : $this->image_response(),
 	    ];
 	}
 }

@@ -16,7 +16,9 @@ class TransformerManager{
         $manager = new Manager;
         $manager->setSerializer(new DataArraySerializer());
 
-        if($request->has('include')){
+        $req = $request->get('include');
+
+        if($req){
             $manager->parseIncludes(str_replace(" ", "", $request->get('include')));
         }
 
