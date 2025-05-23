@@ -27,11 +27,10 @@ class ProfileController extends Controller{
         parent::__construct();
         $this->transformer = new TransformerManager;
         $this->response = ['msg' => "Bad Request.", "status" => false, 'status_code' => "BAD_REQUEST"];
-        $this->guard = "backoffice";
     }
 
     public function index(PageRequest $request){
-        $auth = auth($this->guard)->user();
+        $auth = $this->data['auth'];
 
         if(!$auth){
             $error = $this->not_found_error();
@@ -49,7 +48,7 @@ class ProfileController extends Controller{
     }
 
     public function update(ProfileRequest $request){
-        $auth = auth($this->guard)->user();
+        $auth = $this->data['auth'];
 
         if(!$auth){
             $error = $this->not_found_error();
@@ -97,7 +96,7 @@ class ProfileController extends Controller{
     }
 
     public function update_password(ProfileRequest $request){
-        $auth = auth($this->guard)->user();
+        $auth = $this->data['auth'];
 
         if(!$auth){
             $error = $this->not_found_error();

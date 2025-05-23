@@ -8,14 +8,14 @@
                     <h5 class="card-header">Profile Details</h5>
                     <div class="card-body">
                         <div class="d-flex align-items-start align-items-sm-center gap-4">
-                            <img src="../../assets/images/1.png" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
+                            <img :src="avatarUrl" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
                             <div class="button-wrapper">
                                 <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
                                     <span class="d-none d-sm-block">Upload new photo</span>
                                     <i class="bx bx-upload d-block d-sm-none"></i>
-                                    <input type="file" id="upload" class="account-file-input" hidden="" accept="image/png, image/jpeg">
+                                    <input type="file" id="upload" class="account-file-input" hidden="" accept="image/png, image/jpeg" @change="onFileChange" ref="fileInput">
                                 </label>
-                                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4" @click="resetImage">
                                     <i class="bx bx-reset d-block d-sm-none"></i>
                                     <span class="d-none d-sm-block">Reset</span>
                                 </button>
@@ -65,8 +65,23 @@
 <script setup>
     import MainLayout from '../../layouts/MainLayout.vue';
     import Notification from '../../components/AppNotification.vue';
+    import defaultAvatar from '../../assets/images/1.png';
 
+    import { ref } from 'vue';
     import { useErrorStore } from '../../store/errorStore';
 
     const errorStore = useErrorStore();
+
+    const fileInput = ref(null);
+    const avatarUrl = ref(defaultAvatar);
+
+    const onFileChange = ({ target: { files } }) => {
+        if (files?.[0]) {
+            avatarUrl.value = URL.createObjectURL(files[0]);
+        }
+    };
+    const resetImage = () => {
+        fileInput.value.value = '';
+        avatarUrl.value = defaultAvatar;
+    };
 </script>
