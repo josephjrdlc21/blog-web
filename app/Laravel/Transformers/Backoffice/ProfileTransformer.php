@@ -19,6 +19,7 @@ class ProfileTransformer extends TransformerAbstract{
 
 	public function transform(User $user){
 	    return [
+			'name' => $user->name,
 	     	'firstname' =>  $user->firstname,
 			'middlename' =>  $user->middlename,
 			'lastname' =>  $user->lastname,

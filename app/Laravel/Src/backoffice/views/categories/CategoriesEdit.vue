@@ -20,7 +20,7 @@
                                 </div>
                                 <div class="demo-inline-spacing d-flex justify-content-end">
                                     <RouterLink :to="{ name: 'CategoriesIndex' }" class="btn btn-outline-secondary" @click="errorStore.validations = {}">Cancel</RouterLink>
-                                    <button type="submit" class="btn btn-primary">Save</button>                           
+                                    <button type="submit" class="btn btn-primary">{{ categoryStore.isLoading ? 'Loading..' : 'Save' }}</button>                           
                                 </div>
                             </form>
                         </div>
