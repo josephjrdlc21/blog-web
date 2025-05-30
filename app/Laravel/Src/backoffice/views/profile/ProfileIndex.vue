@@ -13,7 +13,7 @@
                                 <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
                                     <span class="d-none d-sm-block">Upload new photo</span>
                                     <i class="bx bx-upload d-block d-sm-none"></i>
-                                    <input type="file" id="upload" class="account-file-input" hidden="" accept="image/png, image/jpeg" @change="onFileChange" ref="fileInput">
+                                    <input type="file" id="upload" class="account-file-input" hidden="" accept="image/png, image/jpeg" @change="onFileChange">
                                 </label>
                                 <button type="button" class="btn btn-outline-secondary account-image-reset mb-4" @click="resetImage">
                                     <i class="bx bx-reset d-block d-sm-none"></i>
@@ -119,7 +119,6 @@
         profileStore.profile = {};
     });
 
-    const fileInput = ref(null);
     const selectedFile = ref(null);
     const avatarUrl = ref(defaultAvatar);
     const onFileChange = ({ target: { files } }) => {
@@ -129,7 +128,6 @@
         }
     };
     const resetImage = () => {
-        fileInput.value.value = '';
         avatarUrl.value = defaultAvatar;
         selectedFile.value = null;
     };
