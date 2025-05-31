@@ -15,14 +15,14 @@
 
             <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                    <RouterLink :to="{ name: 'ProfileIndex' }" class="nav-link dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                         <div class="avatar avatar-online">
                             <img :src="avatar" alt class="w-px-40 h-auto rounded-circle" />
                         </div>
-                    </a>
+                    </RouterLink>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <RouterLink :to="{ name: 'ProfileIndex' }" class="dropdown-item" href="#">
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <div class="avatar avatar-online">
@@ -35,7 +35,7 @@
                                     <small class="text-muted">Admin</small>
                                 </div>
                             </div>
-                            </a>
+                            </RouterLink>
                         </li>
                         <li>
                             <div class="dropdown-divider"></div>

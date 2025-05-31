@@ -40,6 +40,25 @@ export const useProfileStore = defineStore("profile", {
                 const response = await profileService.update(data);
 
                 authStore.user = response.data.data.name;
+                authStore.avatar = response.data.data.avatar?.full_path;
+
+                errorStore.setNotification("success", response.data, true);
+                router.replace({ name: 'Index' });
+            } catch(error) {
+                errorStore.setNotification("failed", error.response.data, true);
+
+                console.log("Error " + error);
+            } finally {
+                this.isLoading = false;
+            }
+        },
+
+        async profileUpdatePassword(data, router) {
+            const errorStore = useErrorStore();
+            this.isLoading = true;
+
+            try {
+                const response = await profileService.updatePassword(data);
 
                 errorStore.setNotification("success", response.data, true);
                 router.replace({ name: 'Index' });

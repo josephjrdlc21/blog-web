@@ -89,11 +89,13 @@
     import defaultAvatar from '../../assets/images/1.png';
 
     import { useProfileStore } from '../../store/profileStore';
+    import { useAuthStore } from '../../store/authStore';
     import { useErrorStore } from '../../store/errorStore';
     import { onMounted, onUnmounted, ref } from 'vue';
-    import { RouterLink, useRoute, useRouter } from 'vue-router';
+    import { RouterLink, useRouter } from 'vue-router';
 
     const errorStore = useErrorStore();
+    const authStore = useAuthStore();
     const profileStore = useProfileStore();
     const router = useRouter();
 
@@ -123,7 +125,7 @@
     });
 
     const selectedFile = ref(null);
-    const avatarUrl = ref(defaultAvatar);
+    const avatarUrl = ref(authStore.avatar || defaultAvatar);
     const onFileChange = ({ target: { files } }) => {
         if (files?.[0]) {
             selectedFile.value = files[0];
@@ -131,7 +133,7 @@
         }
     };
     const resetImage = () => {
-        avatarUrl.value = defaultAvatar;
+        avatarUrl.value = authStore.avatar || defaultAvatar;
         selectedFile.value = null;
     };
 

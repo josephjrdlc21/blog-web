@@ -7,5 +7,9 @@ export const profileService = {
 
     update(data) {
         return api.post(`/backoffice/profile/edit`, data);
+    },
+
+    updatePassword(data) {
+        return api.post(`/backoffice/profile/edit-password`, data);
     }
 };

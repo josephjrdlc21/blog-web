@@ -59,6 +59,7 @@ class ProfileRequest extends ApiRequestManager
             'username.unique_username' => "Username already used.",
             'image.min' => "The file must be at least 1 KB.",
             'image.max' => "The file may not be greater than 2 MB.",
+            'password_format' => "Password must contain at least 8 characters, including uppercase, lowercase, numbers, and special characters.",
         ];
     }
 }
