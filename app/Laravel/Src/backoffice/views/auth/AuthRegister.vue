@@ -88,7 +88,7 @@
     import { useAuthStore } from '../../store/authStore';
     import { useErrorStore } from '../../store/errorStore';
     import { RouterLink, useRouter } from 'vue-router';
-    import { ref } from 'vue';
+    import { onMounted, onUnmounted, ref } from 'vue';
 
     const authStore = useAuthStore();
     const errorStore = useErrorStore();
@@ -108,6 +108,19 @@
     });
     const isPasswordVisible = ref(true);
     const isConfirmPasswordVisible = ref(true);
+
+    onMounted(() => {
+        const el = document.querySelector('.authentication-wrapper.authentication-basic .authentication-inner')
+        if (el) {
+            el.style.setProperty('max-width', '700px', 'important')
+        }
+    });
+    onUnmounted(() => {
+        const el = document.querySelector('.authentication-wrapper.authentication-basic .authentication-inner')
+        if (el) {
+            el.style.setProperty('max-width', '400px', 'important')
+        }
+    });
 
     const register = async () => {
         await authStore.register(data.value.user, router);
