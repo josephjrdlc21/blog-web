@@ -7,6 +7,7 @@ export const useAuthStore = defineStore("auth", {
         token: null,
         user: null,
         userId: null,
+        avatar: null,
         isLoading: false,
     }),
 
@@ -25,6 +26,7 @@ export const useAuthStore = defineStore("auth", {
                 this.token = response.data.token;
                 this.user = response.data.data.name;
                 this.userId = response.data.data.id;
+                this.avatar = response.data.data.avatar?.full_path;
 
                 errorStore.setNotification("success", response.data, true);
                 return true;
@@ -77,12 +79,13 @@ export const useAuthStore = defineStore("auth", {
             this.token = null;
             this.user = null;
             this.userId = null;
+            this.avatar = null;
 
             return true;
         },
     },
 
     persist: {
-        paths: ['token', 'user', 'userId'],
+        paths: ['token', 'user', 'userId', 'avatar'],
     },
 });

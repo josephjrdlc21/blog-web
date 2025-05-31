@@ -17,7 +17,7 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                         <div class="avatar avatar-online">
-                            <img src="../assets/images/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                            <img :src="avatar" alt class="w-px-40 h-auto rounded-circle" />
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -26,7 +26,7 @@
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <div class="avatar avatar-online">
-                                        <img src="../assets/images/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                        <img :src="avatar" alt class="w-px-40 h-auto rounded-circle" />
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">
@@ -69,16 +69,22 @@
 </template>
 
 <script setup>
+    import defaultAvatar from '../assets/images/1.png';
+
     import { useAuthStore } from '../store/authStore';
 
     import { RouterLink, useRouter } from 'vue-router';
+    import { ref } from 'vue';
 
     const authStore = useAuthStore();
     const router = useRouter();
 
+    const avatar = ref(authStore.avatar || defaultAvatar);
+
     const expandMenu = () => {
         document.documentElement.className = 'light-style layout-menu-fixed layout-menu-expanded';
     };
+
     const logout = async () => {
         if(await authStore.logout()){
             router.replace({ name: 'AuthLogin' });

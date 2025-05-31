@@ -29,6 +29,7 @@ class UserTransformer extends TransformerAbstract{
 			'email' => $user->email,
             'type' => $user->type,
             'status' => $user->status,
+			'avatar' => $user->directory ? $this->image_response($user->directory, $user->path, $user->filename) : $this->image_response(),
             'last_login_at' => $user->last_login_at ? Carbon::parse($user->last_login_at)->format('d/m/Y h:i A') : null,
 			'created_at' => Carbon::parse($user->created_at)->format('d/m/Y h:i A'),
             'updated_at' => Carbon::parse($user->updated_at)->format('d/m/Y h:i A')
