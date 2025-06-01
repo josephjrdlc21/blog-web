@@ -73,11 +73,11 @@
                     <div data-i18n="Categories">Categories</div>
                 </RouterLink>
             </li>
-            <li class="menu-item">
-                <a class="menu-link" href="javascript:void(0);">
+            <li :class="{ 'menu-item': true, 'active': isActive('/backoffice/pages') }">
+                <RouterLink :to="{name: 'PagesIndex'}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-file"></i>
                     <div data-i18n="Pages">Pages</div>
-                </a>
+                </RouterLink>
             </li>
             <li class="menu-item">
                 <a class="menu-link" href="javascript:void(0);">
