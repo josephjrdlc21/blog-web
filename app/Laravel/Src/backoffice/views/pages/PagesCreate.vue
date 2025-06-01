@@ -22,7 +22,7 @@
                                     </div>
                                     <div class="col-lg-12 mb-3">
                                         <label for="input_title" class="form-label">Content</label>
-                                        <ckeditor :editor="editor" :config="editorConfig" />
+                                        <input type="text" class="form-control" id="input_content" placeholder="content">
                                     </div>
                                 </div>
                             </form>
@@ -37,5 +37,4 @@
 <script setup>
     import MainLayout from '../../layouts/MainLayout.vue';
     import Notification from '../../components/AppNotification.vue';
-
 </script>
