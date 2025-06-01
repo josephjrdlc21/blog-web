@@ -25,6 +25,10 @@
                                         <input type="text" class="form-control" id="input_content" placeholder="content">
                                     </div>
                                 </div>
+                                <div class="demo-inline-spacing d-flex justify-content-end">
+                                    <RouterLink :to="{ name: 'PagesIndex' }" class="btn btn-outline-secondary">Cancel</RouterLink>
+                                    <button type="submit" class="btn btn-primary">Submit</button>                           
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -37,4 +41,6 @@
 <script setup>
     import MainLayout from '../../layouts/MainLayout.vue';
     import Notification from '../../components/AppNotification.vue';
+
+    import { RouterLink } from 'vue-router';
 </script>
