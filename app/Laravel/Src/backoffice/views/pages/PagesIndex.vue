@@ -66,8 +66,8 @@
                                                     Action
                                                 </button>
                                                 <ul class="dropdown-menu" style="" data-bs-popper="static">
-                                                    <li><RouterLink to="" class="dropdown-item"> View Details</RouterLink></li>
-                                                    <li><RouterLink to="" class="dropdown-item"> Edit Details</RouterLink></li>
+                                                    <li><RouterLink :to="{ name: 'PagesShow', params: {id: '1'} }" class="dropdown-item"> View Details</RouterLink></li>
+                                                    <li><RouterLink :to="{ name: 'PagesEdit', params: {id: '1'} }" class="dropdown-item"> Edit Details</RouterLink></li>
                                                     <li><button class="dropdown-item"> Delete Category</button></li>
                                                 </ul>
                                             </div>
@@ -90,4 +90,6 @@
 <script setup>
     import MainLayout from '../../layouts/MainLayout.vue';
     import Notification from '../../components/AppNotification.vue';
+
+    import { RouterLink, useRouter } from 'vue-router';
 </script>

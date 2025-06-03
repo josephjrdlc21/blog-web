@@ -2,12 +2,12 @@
     <MainLayout>
         <div class="container-xxl flex-grow-1 container-p-y">
             <Notification />
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">CMS /</span> <span class="text-muted fw-light">Pages /</span> Create Page</h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">CMS /</span> <span class="text-muted fw-light">Pages /</span> Edit Page</h4>
             <div class="row">
                 <div class="col-lg-12 mb-4 order-0">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title mb-4">Create Page</h5>
+                            <h5 class="card-title mb-4">Edit Page</h5>
                             <form>
                                 <div class="row">
                                     <div class="col-lg-12 mb-3">
@@ -27,7 +27,7 @@
                                 </div>
                                 <div class="demo-inline-spacing d-flex justify-content-end">
                                     <RouterLink :to="{ name: 'PagesIndex' }" class="btn btn-outline-secondary">Cancel</RouterLink>
-                                    <button type="submit" class="btn btn-primary">Submit</button>                           
+                                    <button type="submit" class="btn btn-primary">Save</button>                           
                                 </div>
                             </form>
                         </div>
