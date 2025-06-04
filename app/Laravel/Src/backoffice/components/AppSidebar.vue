@@ -79,17 +79,17 @@
                     <div data-i18n="Pages">Pages</div>
                 </RouterLink>
             </li>
-            <li class="menu-item">
-                <a class="menu-link" href="javascript:void(0);">
+            <li :class="{ 'menu-item': true, 'active': isActive('/backoffice/faq') }">
+                <RouterLink :to="{name: 'FaqIndex'}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-help-circle"></i>
                     <div data-i18n="FAQ">FAQ</div>
-                </a>
+                </RouterLink>
             </li>
-            <li class="menu-item">
-                <a class="menu-link" href="javascript:void(0);">
+            <li :class="{ 'menu-item': true, 'active': isActive('/backoffice/privacy') }">
+                <RouterLink :to="{name: 'PrivacyIndex'}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-shield-quarter"></i>
                     <div data-i18n="Policies">Privacy Policies</div>
-                </a>
+                </RouterLink>
             </li>
             <li class="menu-item">
                 <a class="menu-link" href="javascript:void(0);">

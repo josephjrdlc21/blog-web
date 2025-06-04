@@ -20,6 +20,13 @@ import PagesShow from '../views/pages/PagesShow.vue';
 import PagesCreate from '../views/pages/PagesCreate.vue';
 import PagesEdit from '../views/pages/PagesEdit.vue';
 
+import FaqIndex from '../views/faq/FaqIndex.vue';
+import FaqCreate from '../views/faq/FaqCreate.vue';
+import FaqEdit from '../views/faq/FaqEdit.vue';
+import FaqShow from '../views/faq/FaqShow.vue';
+
+import PrivacyIndex from '../views/privacy/PrivacyIndex.vue';
+
 import ProfileIndex from '../views/profile/ProfileIndex.vue';
 import ProfileChangePassword from '../views/profile/ProfileChangePassword.vue';
 
@@ -44,6 +51,13 @@ const routes = [
     { path: '/backoffice/pages/create', name: 'PagesCreate', component: PagesCreate, meta: { requiresAuth: true } },
     { path: '/backoffice/pages/edit/:id', name: 'PagesEdit', component: PagesEdit, meta: { requiresAuth: true } },
     { path: '/backoffice/pages/show/:id', name: 'PagesShow', component: PagesShow, meta: { requiresAuth: true } },
+
+    { path: '/backoffice/faq', name: 'FaqIndex', component: FaqIndex, meta: { requiresAuth: true } },
+    { path: '/backoffice/faq/create', name: 'FaqCreate', component: FaqCreate, meta: { requiresAuth: true } },
+    { path: '/backoffice/faq/edit/:id', name: 'FaqEdit', component: FaqEdit, meta: { requiresAuth: true } },
+    { path: '/backoffice/faq/show/:id', name: 'FaqShow', component: FaqShow, meta: { requiresAuth: true } },
+
+    { path: '/backoffice/privacy', name: 'PrivacyIndex', component: PrivacyIndex, meta: { requiresAuth: true } },
 
     { path: '/backoffice/profile', name: 'ProfileIndex', component: ProfileIndex, meta: { requiresAuth: true } },
     { path: '/backoffice/profile/change-password', name: 'ProfileChangePassword', component: ProfileChangePassword, meta: { requiresAuth: true } },
