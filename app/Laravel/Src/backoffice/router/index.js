@@ -27,6 +27,14 @@ import FaqShow from '../views/faq/FaqShow.vue';
 
 import PrivacyIndex from '../views/privacy/PrivacyIndex.vue';
 
+import TermsIndex from '../views/terms/TermsIndex.vue';
+
+import SettingsIndex from '../views/settings/SettingsIndex.vue';
+
+import SocialsIndex from '../views/socials/SocialsIndex.vue';
+import SocialsCreate from '../views/socials/SocialsCreate.vue';
+import SocialsEdit from '../views/socials/SocialsEdit.vue';
+
 import ProfileIndex from '../views/profile/ProfileIndex.vue';
 import ProfileChangePassword from '../views/profile/ProfileChangePassword.vue';
 
@@ -58,6 +66,14 @@ const routes = [
     { path: '/backoffice/faq/show/:id', name: 'FaqShow', component: FaqShow, meta: { requiresAuth: true } },
 
     { path: '/backoffice/privacy', name: 'PrivacyIndex', component: PrivacyIndex, meta: { requiresAuth: true } },
+
+    { path: '/backoffice/terms', name: 'TermsIndex', component: TermsIndex, meta: { requiresAuth: true } },
+
+    { path: '/backoffice/settings', name: 'SettingsIndex', component: SettingsIndex, meta: { requiresAuth: true } },
+
+    { path: '/backoffice/socials', name: 'SocialsIndex', component: SocialsIndex, meta: { requiresAuth: true } },
+    { path: '/backoffice/socials/create', name: 'SocialsCreate', component: SocialsCreate, meta: { requiresAuth: true } },
+    { path: '/backoffice/socials/edit/:id', name: 'SocialsEdit', component: SocialsEdit, meta: { requiresAuth: true } },
 
     { path: '/backoffice/profile', name: 'ProfileIndex', component: ProfileIndex, meta: { requiresAuth: true } },
     { path: '/backoffice/profile/change-password', name: 'ProfileChangePassword', component: ProfileChangePassword, meta: { requiresAuth: true } },

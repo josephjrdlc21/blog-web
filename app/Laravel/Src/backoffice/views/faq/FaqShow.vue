@@ -16,7 +16,6 @@
                             <div class="demo-inline-spacing d-flex justify-content-end">
                                 <RouterLink :to="{ name: 'FaqIndex' }" class="btn btn-outline-secondary">Cancel</RouterLink>
                                 <RouterLink :to="{ name: 'FaqEdit', params: {id: '1'} }" class="btn btn-warning">Edit</RouterLink>
-                                <button type="submit" class="btn btn-primary">Submit</button>                           
                             </div>
                         </div>
                     </div>

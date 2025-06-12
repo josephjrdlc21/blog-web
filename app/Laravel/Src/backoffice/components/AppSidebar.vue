@@ -91,23 +91,23 @@
                     <div data-i18n="Policies">Privacy Policies</div>
                 </RouterLink>
             </li>
-            <li class="menu-item">
-                <a class="menu-link" href="javascript:void(0);">
+            <li :class="{ 'menu-item': true, 'active': isActive('/backoffice/terms') }">
+                <RouterLink :to="{name: 'TermsIndex'}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-file-blank"></i>
                     <div data-i18n="Terms">Terms & Conditions</div>
-                </a>
+                </RouterLink>
             </li>
-            <li class="menu-item">
-                <a class="menu-link" href="javascript:void(0);">
+            <li :class="{ 'menu-item': true, 'active': isActive('/backoffice/settings') }">
+                <RouterLink :to="{name: 'SettingsIndex'}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-cog"></i>
                     <div data-i18n="Settings">Settings</div>
-                </a>
+                </RouterLink>
             </li>
-            <li class="menu-item">
-                <a class="menu-link" href="javascript:void(0);">
+            <li :class="{ 'menu-item': true, 'active': isActive('/backoffice/socials') }">
+                <RouterLink :to="{name: 'SocialsIndex'}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-share-alt"></i>
                     <div data-i18n="Media">Social Media</div>
-                </a>
+                </RouterLink>
             </li>
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">System Settings</span>
