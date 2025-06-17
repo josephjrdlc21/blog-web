@@ -35,6 +35,8 @@ import SocialsIndex from '../views/socials/SocialsIndex.vue';
 import SocialsCreate from '../views/socials/SocialsCreate.vue';
 import SocialsEdit from '../views/socials/SocialsEdit.vue';
 
+import AuditTrailIndex from '../views/audit-trail/AuditTrailIndex.vue';
+
 import ProfileIndex from '../views/profile/ProfileIndex.vue';
 import ProfileChangePassword from '../views/profile/ProfileChangePassword.vue';
 
@@ -74,6 +76,8 @@ const routes = [
     { path: '/backoffice/socials', name: 'SocialsIndex', component: SocialsIndex, meta: { requiresAuth: true } },
     { path: '/backoffice/socials/create', name: 'SocialsCreate', component: SocialsCreate, meta: { requiresAuth: true } },
     { path: '/backoffice/socials/edit/:id', name: 'SocialsEdit', component: SocialsEdit, meta: { requiresAuth: true } },
+
+    { path: '/backoffice/audit-trail', name: 'AuditTrailIndex', component: AuditTrailIndex, meta: { requiresAuth: true } },
 
     { path: '/backoffice/profile', name: 'ProfileIndex', component: ProfileIndex, meta: { requiresAuth: true } },
     { path: '/backoffice/profile/change-password', name: 'ProfileChangePassword', component: ProfileChangePassword, meta: { requiresAuth: true } },

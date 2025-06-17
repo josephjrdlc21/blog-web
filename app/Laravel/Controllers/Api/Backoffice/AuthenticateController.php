@@ -115,6 +115,24 @@ class AuthenticateController extends Controller{
         return response()->json($this->api_response($this->response), $this->response_code);
     }
 
+    public function refresh_token(PageRequest $request){
+        $old_token = $request->bearerToken();
+
+        $user = auth($this->guard)->user();
+        $new_token = auth($this->guard)->refresh();
+
+        $this->response['status'] = true;
+        $this->response['status_code'] = "ACCESS_TOKEN_UPDATED";
+        $this->response['msg'] = "New access token assigned.";
+        $this->response['token'] = $new_token;
+        $this->response['token_type'] = "Bearer";
+
+        $this->response_code = 200;
+
+        callback:
+        return response()->json($this->api_response($this->response), $this->response_code);
+    }
+
     public function logout(PageRequest $request){
         auth($this->guard)->logout();
 

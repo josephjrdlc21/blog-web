@@ -112,11 +112,11 @@
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">System Settings</span>
             </li>
-            <li class="menu-item">
-                <a class="menu-link" href="javascript:void(0);">
+            <li :class="{ 'menu-item': true, 'active': isActive('/backoffice/audit-trail') }">
+                <RouterLink :to="{name: 'AuditTrailIndex'}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-history"></i>
                     <div data-i18n="Audit">Audit Trail</div>
-                </a>
+                </RouterLink>
             </li>
         </ul>
     </aside>
