@@ -16,9 +16,9 @@
             <div class="mb-3 form-password-toggle">
                 <div class="d-flex justify-content-between">
                     <label class="form-label" for="password">Password</label>
-                    <a href="#">
+                    <RouterLink :to="{ name: 'AuthForgotPassword' }">
                         <small>Forgot Password?</small>
-                    </a>
+                    </RouterLink>
                 </div>
                 <div class="input-group input-group-merge">
                     <input :type="isPasswordVisible ? 'password' : 'text'" v-model="credentials.password" id="password" class="form-control" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password"/>

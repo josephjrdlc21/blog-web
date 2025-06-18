@@ -52,11 +52,11 @@
                     <div data-i18n="Analytics">Dashboard</div>
                 </RouterLink>
             </li>
-            <li class="menu-item">
-                <a class="menu-link" href="javascript:void(0);">
+            <li :class="{ 'menu-item': true, 'active': isActive('/backoffice/blogs') }">
+                <RouterLink :to="{name: 'BlogsIndex'}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-book-bookmark"></i>
                     <div data-i18n="Blogs">Blogs</div>
-                </a>
+                </RouterLink>
             </li>
             <li :class="{ 'menu-item': true, 'active': isActive('/backoffice/users') }">
                 <RouterLink :to="{name: 'UsersIndex'}" class="menu-link">

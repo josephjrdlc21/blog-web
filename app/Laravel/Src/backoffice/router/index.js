@@ -3,8 +3,15 @@ import { useAuthStore } from '../store/authStore';
 
 import Index from '../views/Index.vue';
 
+import BlogsIndex from '../views/blogs/BlogsIndex.vue';
+import BlogsCreate from '../views/blogs/BlogsCreate.vue';
+import BlogsEdit from '../views/blogs/BlogsEdit.vue';
+import BlogsShow from '../views/blogs/BlogsShow.vue';
+
 import AuthLogin from '../views/auth/AuthLogin.vue';
 import AuthRegister from '../views/auth/AuthRegister.vue';
+import AuthForgotPassword from '../views/auth/AuthForgotPassword.vue';
+import AuthResetPassword from '../views/auth/AuthResetPassword.vue';
 
 import UsersIndex from '../views/users/UsersIndex.vue';
 import UsersShow from '../views/users/UsersShow.vue';
@@ -45,8 +52,15 @@ import NotFound from '../views/errors/404.vue';
 const routes = [
     { path: '/backoffice/', name: 'Index', component: Index, meta: { requiresAuth: true } },
 
+    { path: '/backoffice/blogs', name: 'BlogsIndex', component: BlogsIndex, meta: { requiresAuth: true } },
+    { path: '/backoffice/blogs/create', name: 'BlogsCreate', component: BlogsCreate, meta: { requiresAuth: true } },
+    { path: '/backoffice/blogs/edit/:id', name: 'BlogsEdit', component: BlogsEdit, meta: { requiresAuth: true } },
+    { path: '/backoffice/blogs/show/:id', name: 'BlogsShow', component: BlogsShow, meta: { requiresAuth: true } },
+
     { path: '/backoffice/login', name: 'AuthLogin', component: AuthLogin, meta: { guest: true } },
     { path: '/backoffice/register', name: 'AuthRegister', component: AuthRegister, meta: { guest: true } },
+    { path: '/backoffice/forgot-password', name: 'AuthForgotPassword', component: AuthForgotPassword, meta: { guest: true } },
+    { path: '/backoffice/reset-password/:token', name: 'AuthResetPassword', component: AuthResetPassword, meta: { guest: true } },
 
     { path: '/backoffice/users', name: 'UsersIndex', component: UsersIndex, meta: { requiresAuth: true } },
     { path: '/backoffice/users/create', name: 'UsersCreate', component: UsersCreate, meta: { requiresAuth: true } },
