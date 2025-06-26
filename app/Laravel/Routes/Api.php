@@ -8,6 +8,7 @@ Route::group(['as' => "api.", 'prefix' => "api", 'namespace' => "Api", 'middlewa
             include_once app_path('Laravel/Routes/Api/Backoffice/User.php');
             include_once app_path('Laravel/Routes/Api/Backoffice/Category.php');
             include_once app_path('Laravel/Routes/Api/Backoffice/Profile.php');
+            include_once app_path('Laravel/Routes/Api/Backoffice/Page.php');
         });
     });
 });

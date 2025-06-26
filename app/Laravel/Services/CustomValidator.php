@@ -2,7 +2,7 @@
 
 namespace App\Laravel\Services;
 
-use App\Laravel\Models\{User,Category};
+use App\Laravel\Models\{User,Category,Page};
 
 use Illuminate\Validation\Validator;
 
@@ -64,6 +64,14 @@ class CustomValidator extends Validator
         $id = (is_array($parameters) and isset($parameters[0])) ? $parameters[0] : "0";
 
         return Category::where('name', $category)->where('id', '<>', $id)->count() ? false : true;
+    }
+
+    public function validateUniquePage($attribute, $value, $parameters)
+    {
+        $page = strtolower($value);
+        $id = (is_array($parameters) and isset($parameters[0])) ? $parameters[0] : "0";
+
+        return Page::where('page', $page)->where('id', '<>', $id)->count() ? false : true;
     }
 
     public function validateCurrentPassword($attribute, $value, $parameters)
